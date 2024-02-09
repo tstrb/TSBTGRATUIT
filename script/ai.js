@@ -7,7 +7,7 @@ module.exports.config = {
   aliases: ['gpt', 'openai'],
   description: "An AI command powered by GPT-4",
   usage: "Ai [promot]",
-  credits: 'Developer',
+  credits: 'TsantaBot',
   cooldown: 3,
 };
 module.exports.run = async function({
@@ -17,7 +17,7 @@ module.exports.run = async function({
 }) {
   const input = args.join(' ');
   if (!input) {
-    api.sendMessage(`Please provide a question or statement after 'ai'. For example: 'ai What is the capital of France?'`, event.threadID, event.messageID);
+    api.sendMessage(`🤖 : bit.ly/tsantabot \n\n Exemple: 'ai Qui est le capital Madagascar?'`, event.threadID, event.messageID);
     return;
   }
   api.sendMessage(`🔍 "${input}"`, event.threadID, event.messageID);

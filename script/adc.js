@@ -1,11 +1,11 @@
 module.exports.config = {
   name: "adc",
   version: "1.0.0",
-  role: 3,
-  hasPrefix: true,
+  role: 1,
+  hasPrefix: false,
   usage: '[reply or text]',
   description: 'Apply code from buildtooldev and pastebin',
-  credits: 'Deveploper',
+  credits: 'TsantaBot',
   cooldown: 5
 };
 module.exports.run = async function({

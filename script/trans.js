@@ -1,11 +1,12 @@
 module.exports.config = {
-  name: "trans",
+  name: "traduire",
   version: "1.0.0",
+  aliases : ['translate'],
   role: 0,
-  hasPrefix: true,
+  hasPrefix: false,
   description: "Text translation",
   usages: "trans [tl, en] [promt]",
-  credits: "Developer",
+  credits: "TsantaBot",
   cooldowns: 5,
 };
 module.exports.run = async ({

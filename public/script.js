@@ -26,7 +26,7 @@ setInterval(measurePing, 1000);
 function updateTime() {
   const now = new Date();
   const options = {
-    timeZone: 'Asia/Manila',
+    timeZone: 'Indian/Antananarivo',
     hour12: true,
     hour: 'numeric',
     minute: 'numeric',
@@ -41,7 +41,7 @@ async function State() {
   const jsonInput = document.getElementById('json-data');
   const button = document.getElementById('submitButton');
   if (!Commands[0].commands.length) {
-    return showResult('Please provide at least one valid command for execution.');
+    return showResult('Sélectionner au moins une commande pour exécuter. ');
   }
   try {
     button.style.display = 'none';

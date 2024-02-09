@@ -1,92 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>Home</title>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <title>TsantaBot</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/font-awesome.min.css">
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="theme-color" content="black">
+      <meta name="description" content="TsantaBot: Créez votre Chatbot Facebook Messenger en 5min.">
+      <link rel="icon" href="image/logo_2.jpg" type="image/x-icon">
+      <meta name="keywords" content="Chatbot, Ai, Chatgpt,  GPT-4, Créer Chatbot, SDXL, Facebook,  Messenger, Chatbot Madagascar, Cours">
+      <meta name="author" content="Tsanta Rabemananjara">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <link rel="icon" type="image/x-icon" href="image/logo.png">
+      
       <link rel="stylesheet" href="styles.css">
    </head>
    <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-         <a class="navbar-brand" href="#">Home </a>
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-         </button>
-         <div class="collapse navbar-collapse justify-content-end" id="navbarNav" style="margin-right: 70px;">
-            <ul class="navbar-nav">
-               <li class="nav-item active">
-                  <a class="nav-link" href="/">Home <span class="sr-only">(current)</span>
-                  </a>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Features </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     <a class="dropdown-item" href="#">Cookies Extractor</a>
-                     <div class="dropdown-divider"></div>
-                     <a class="dropdown-item" href="/step_by_step_guide">Step-by-Step Guide</a>
-                  </div>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="online_user">Active</a>
-               </li>
-            </ul>
-         </div>
-      </nav>
-      <div class="container">
-         <h1 class="col text-center" style="font-size: 20px; padding: 10px;">GPT - 4</h1>
-         <form id="json-form" onsubmit="submitForm(event)">
-            <div class="row">
-               <div class="col-md-12">
-                  <textarea id="json-data" class="form-control centered-textarea center-placeholder" placeholder=""></textarea>
-               </div>
+      
+      <button class="btn btn-primary btn-ml shadow" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" style="position: fixed"><i class="fa-solid fa-folder"></i></button>
+      <div class="offcanvas offcanvas-top shadow" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasTopLabel">TsantaBot</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="colX text-center" style="padding:10px">
+            <a href="guide.html" class="btn btn-dark">Guide</a>
+            <a href="online_user" class="btn btn-primary">Actifs</a>
+            <a href="https://ianatra.a0001.net" class="btn btn-danger">Cours </a>
+             <a disabled href="" class="btn btn-outline-dark disabled position-relative">Mode PRO
+               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                 15+
+                 <span class="visually-hidden">New</span>
+               </span>
+             </a>
+          </div>
+        </div>
+      </div>
+      <div class="container shadow">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="image/logo.png" class="mx-auto d-block img-thumbnail mt-2 shadow" width="50%" alt="TsantaBot" style="border-radius:50%">
             </div>
-         </form>
-         <p style=" margin-top: 10px">Greetings! Begin by entering your cookie. Scroll down to carefully review our Terms and Privacy.</p>
+            <div class="carousel-item">
+              <img src="image/logo_2.jpg" class="mx-auto d-block img-thumbnail mt-2" width="50%" alt="TsantaBot" style="border-radius:50%">
+            </div>
+            <div class="carousel-item">
+              <img src="image/logo_3.jpg" class="mx-auto d-block img-thumbnail mt-2" width="50%" alt="TsantaBot" style="border-radius:50%">
+            </div>
+            <div class="carousel-item">
+              <img src="image/logo_4.jpg" class="mx-auto d-block img-thumbnail mt-2" width="50%" height="50%" alt="TsantaBot" style="border-radius:50%">
+            </div>
+          </div>
+        </div>
+        
+         <h1 class="colX text-center text-primary H1" style="font-sizeXX: 20px; padding: 10px;">TsantaBot</h1><h6 class="text-center text-secondary">Compte Facebook Personnel</h6><hr>
+         <h5 class="colX text-center">"Créez un Chatbot pour votre propre compte Facebook avec TsantaBot"</h5>
+         <div class="col text-center" style="padding:10px">
+           <a href="guide.html" class="btn btn-dark shadow">Guide
+           </a>
+           <a href="online.html" class="btn btn-dark">Liste Actifs</a>
+           <a disabled href="" class="btn btn-dark disabled position-relative">Mode PRO
+             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+               15+
+               <span class="visually-hidden">New</span>
+             </span>
+           </a>
+           
+         </div>
+         
+         <p style=" margin-top: 10px" class="text-secondary">Mialohan'ny hampiasainao TsantaBot dia manaraha GUIDE ary vakio miadana ireto Termes sy conditions ambany ireto.</p>
+        
       </div>
-      <div class="container">
-         <h1 class="col text-center" style="font-size: 20px; padding: 10px;">Terms and Conditions and Privacy Policy</h1>
-         <p>Upon deployment or logging in, your chatbot connection remains active unless you personally access the bot's account or modify the password. This measure is in place to ensure the seamless operation and security of the chatbot.</p>
-         <p>Exercise caution and refrain from sharing your cookie with any third party. Your cookie contains sensitive information crucial to the confidentiality and security of your account and the connected chatbot.</p>
-         <p>As the service provider, we disclaim responsibility for any unauthorized account access. Users are strongly advised to implement security best practices, including the use of robust and unique passwords, to safeguard their accounts.</p>
-         <p>Accessing the bot's account may lead to a disruption in service. It is strongly recommended not to attempt to access the bot's account to maintain the continuous functionality of the chatbot.</p>
-         <p>If the chatbot is unresponsive, kindly return to this website. If issues persist, consider changing the account to ensure uninterrupted service.</p>
-         <p>We, as the service provider, disclaim responsibility for any account locking or suspension on the provided account. Users are expected to adhere to the terms of service of the hosting platform.</p>
-         <p>For added security, it is highly recommended to use dummy or disposable accounts when interacting with the chatbot.</p>
-         <p>Users are strictly prohibited from employing the chatbot for malicious activities. Violation of this rule may result in the termination of access to the chatbot and may have legal consequences.</p>
-         <div class="container" id="listOfCommands">
-            <h1 style="font-size: 16px; padding: 10px;">Please choose your commands by tapping on the respective options.</h1>
-            <button class="btn btn-primary" onclick="selectAllCommands()">Select all commands</button>
-         </div>
-         <div class="container" id="listOfCommandsEvent">
-            <h1 style="font-size: 16px; padding: 10px;">Please choose your event commands by tapping on the respective options.</h1>
-            <button class="btn btn-primary" onclick="selectAllEvents()">Select all events</button>
-         </div>
-         <div class="container" id="prefixOfCommands">
-            <h1 style="font-size: 16px; padding: 10px;">Please provide a prefix (optional). If you choose not to, entering 'non-prefix' will be considered as your input</h1>
-            <input type="text" id="inputOfPrefix">
-         </div>
-         <div class="container" id="adminOfCommands">
-            <h1 style="font-size: 16px; padding: 10px;">Please provide an uid (optional). If you choose not to, entering 'default' will be considered as your input</h1>
-            <input type="text" id="inputOfAdmin">
-         </div>
-         <label style="font-size: 14px; display: flex; align-items: center; padding: 22px;">
-         <input type="checkbox" id="agreeCheckbox" style="margin-right: 10px;"> Checking this box certifies that I have read, understood, and agreed to the Terms and Conditions. </label>
-         <div class="col text-center">
-            <button class="btn btn-primary" onclick="State()" disabled id="submitButton" style="width: 100%">Submit</button>
-         </div>
+      <div class="containerXXX">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <span class="badge text-bg-primary">#1 </span>&nbsp; <strong>   COOKIES APPSTATE Fb </strong>
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <p style="padding: 10px;">Collez ici votre cookies <a href="" class="btn btn-outline-dark btn-sm">Guide</a> </p>
+                <form id="json-form" onsubmit="submitForm(event)">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <textarea rows="5px" id="json-data" class="form-control centered-textarea center-placeholder shadow" placeholder="Collez ici votre cookies APPSTATE ... Voir le tutoriel Guide." style="border:2px dotted red"></textarea>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                 <span class="badge text-bg-primary">#2 </span>&nbsp; <strong> CHOIX  COMMANDES </strong>
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="shadow" id="listOfCommands">
+                <p class="text-" style="padding: 10px;">Sélectionnez votre commandes.</p>
+               </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree2" aria-expanded="false" aria-controls="collapseThree">
+                <span class="badge text-bg-primary">#3 </span>&nbsp; <strong>  FACEBOOK_ID Admin &nbsp;</strong> <sub class="text-muted" style="font-size: 10px">(Facultatif)</sub>
+              </button>
+            </h2>
+            <div id="collapseThree2" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="" id="adminOfCommands">
+                  <p class="" style="padding: 10px;">Entrez ici votre FACEBOOK ID pour indiquer que vous êtes l'Admin de ce chatbot.<br> (Laissez-le vide pour ID fb par défaut: noID)<br></p>
+                  <input class="form-control shadow" type="text" id="inputOfAdmin" placeholder="Ex: 012345678901234" style="border: 1px solid blue">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <span class="badge text-bg-primary">#4 </span>&nbsp; <strong> PREFIX &nbsp;</strong> <sub class="text-muted" style="font-size: 10px">(Facultatif)</sub>
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                 <div class="" id="prefixOfCommands">
+                   <p class="" style="padding: 10px;">Entrez votre PREFIX. (Laissez-le vide pour prefix par défaut: noPrefix)<br></p>
+                   <input class="form-control shadow " type="text" id="inputOfPrefix" placeholder="Ex: #" style="border: 1px solid blue">
+                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapseThree">
+                <span class="badge text-bg-primary">#5 </span>&nbsp; <strong>  TERMES ET CONDITIONS</strong>
+              </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <p class="text-center"><strong class="text-danger">TERMES ET CONDITIONS TsantaBot</strong></p>
+                <p>Lors du déploiement ou de la connexion, la connexion de votre chatbot reste active sauf si vous accédez personnellement au compte du bot ou modifiez le mot de passe.</p> <p>Cette mesure est en place pour garantir le bon fonctionnement et la sécurité du chatbot. Faites preuve de prudence et abstenez-vous de partager votre cookie avec des tiers. Votre cookie contient des informations sensibles cruciales pour la confidentialité et la sécurité de votre compte et du chatbot connecté.</p>
+           <p>En tant que prestataire de services, nous déclinons toute responsabilité en cas d'accès non autorisé au compte. Il est fortement recommandé aux utilisateurs de mettre en œuvre les meilleures pratiques en matière de sécurité, notamment en utilisant des mots de passe solides et uniques, pour protéger leurs comptes.</p></p> <i>Accéder au compte du bot peut entraîner une interruption du service. Il est vivement recommandé de ne pas essayer d'accéder au compte du bot afin de maintenir la fonctionnalité continue du chatbot Si le chatbot ne répond pas, veuillez revenir sur ce site web puis refaire l'étape5 jusqu'à l'étape10</i> Si les problèmes persistent, envisagez de changer de compte pour garantir un service ininterrompu.</p> <p> En tant que fournisseur de services, nous déclinons toute responsabilité en cas de verrouillage ou de suspension du compte fourni. Les utilisateurs doivent se conformer aux conditions d'utilisation de la plateforme d'hébergement.</p>  Pour une sécurité accrue, il est fortement recommandé d'utiliser des comptes fictifs ou jetables lors de l'interaction avec le chatbot. Les utilisateurs sont strictement interdits d'utiliser le chatbot à des fins malveillantes. La violation de cette règle peut entraîner la résiliation de l'accès au chatbot et des conséquences juridiques.</p>
+           <p>
+             <label style="font-size: 14px; display: flex; align-items: center; padding: 22px;">
+               <input class="checkbox shadow" type="checkbox" id="agreeCheckbox" style="margin-right: 10px;"> En cochant cette case certifie que j'ai lu, compris et accepté les Termes et Conditions générales. </label>
+             <div class="col text-center">
+               <button class="btn btn-primary shadow " onclick="State()" disabled id="submitButton" style="width: 100%" data-bs-toggle="modal" data-bs-target="#result2">DÉMARRER </button>
+             </div>
+           </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+         
       </div>
-      <div id="result" class="container text-center" style="display: none;"></div>
-      <div class="footer">
-         <p>Time: <span id="time"></span>
+      <!-- Modal -->
+      <div class="modal fade shadow" id="result2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Notification</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="result" class="modal-body text-dark text-center">
+              
+            </div>
+            <div class="modal-footer">
+                
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">  <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+               <span role="status"></span>&nbsp;&nbsp; Ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer shadow">
+         <p>Temps: <span id="time"></span>
          </p>
-         <p>Ping: <span id="ping"></span>
+         <p>Coeur: <span id="ping"></span>
          </p>
+         <p class="text-center"><b>Tsanta Rabemananjara </b> | 0349310268 <a href="https://www.facebook.com/profile.php?id=61552825191002" class="text-primary btn btn-outline-primaryX" style="font-size: 20px"><i class="fa-brands fa-facebook"></i></a></p>
+         
       </div>
+     
       <script src="script.js"></script>
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+ 
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
    </body>

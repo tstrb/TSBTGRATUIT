@@ -14,10 +14,10 @@ module.exports.run = async function({
 }) {
   const input = args.join(' ');
   if (!input) {
-    api.sendMessage(`ℹ️ | 𝖯𝗅𝖾𝖺𝗌𝖾 𝗉𝗋𝗈𝗏𝗂𝖽𝖾 𝖺 𝗊𝗎𝖾𝗌𝗍𝗂𝗈𝗇 𝗈𝗋 𝗌𝗍𝖺𝗍𝖾𝗆𝖾𝗇𝗍 𝖺𝖿𝗍𝖾𝗋 𝗇𝗂𝖼𝖺.\n\n𝗘𝗫𝗔𝗠𝗣𝗟𝗘: 𝗇𝗂𝖼𝖺 𝗐𝗁𝖺𝗍 𝗂𝗌 𝗍𝗁𝖾 𝗏𝖺𝗅𝗎𝖾 𝗈𝖿 𝖾𝖽𝗎𝖼𝖺𝗍𝗂𝗈𝗇?`, event.threadID, event.messageID);
+    api.sendMessage(`ℹ️ | bit.ly/tsantabot \n\n𝗘𝗫𝗔𝗠𝗣𝗟𝗘: 𝗇𝗂𝖼𝖺 Bonjour, tu es là ?`, event.threadID, event.messageID);
     return;
   }
-  api.sendMessage(`🔎 | 𝗡𝗶𝗰𝗮 𝗂𝗌 𝗌𝖾𝖺𝗋𝖼𝗁𝗂𝗇𝗀 𝖿𝗈𝗋 𝗍𝗁𝖾 𝖺𝗇𝗌𝗐𝖾𝗋 𝗈𝖿 "${input}"`, event.threadID, event.messageID);
+  api.sendMessage(`✍ | 𝗡𝗶𝗰𝗮 en train d'écrire...`, event.threadID, event.messageID);
   try {
     const response = await axios.get(`https://lianeapi.onrender.com/ask/nica?key=j86bwkwo-8hako-12C&prompt=${encodeURIComponent(input)}`);
     api.sendMessage(response.data.message, event.threadID, event.messageID);

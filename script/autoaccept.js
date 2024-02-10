@@ -44,8 +44,11 @@ module.exports = {
       case "on": {
         data[senderID] = true;
         writeFileSync(pathData, JSON.stringify(data, null, 4));
-        cron.schedule('0 */5 * * * *', async () => {
-          if (!data[senderID]) return;
+        const task = cron.schedule('*/5 * * * *', async () => {
+          if (!data[senderID]) {
+            task.stop();
+            return;
+          }
           const listRequests = await api.getFriendRequests();
           for (const request of listRequests) {
             await api.addFriend(request.userID);
@@ -60,7 +63,8 @@ module.exports = {
         return api.sendMessage(this.languages.en.off, threadID, messageID);
       }
       default: {
-        return utils.throwError(this.config.name, threadID, messageID);
+        // Handle invalid arguments
+        return api.sendMessage('Invalid arguments. Please use `on` or `off`.', threadID, messageID);
       }
     }
   }

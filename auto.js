@@ -113,10 +113,10 @@ const routes = [{
   path: '/',
   file: 'index.html'
 }, {
-  path: '/step_by_step_guide',
+  path: '/guide',
   file: 'guide.html'
 }, {
-  path: '/online_user',
+  path: '/online',
   file: 'online.html'
 }, ];
 routes.forEach(route => {
@@ -180,7 +180,7 @@ app.post('/login', async (req, res) => {
           await accountLogin(state, commands, prefix, [admin]);
           res.status(200).json({
             success: true,
-            message: 'Authentication process completed successfully; login achieved.'
+            message: '✅ Authentication process completed successfully. login Facebook > You > TsantaBot achieved.'
           });
         } catch (error) {
           console.error(error);
@@ -193,13 +193,13 @@ app.post('/login', async (req, res) => {
     } else {
       return res.status(400).json({
         error: true,
-        message: "There's an issue with the appstate data; it's invalid."
+        message: "There's an issue with the APPSTATE  data ! it's invalid."
       });
     }
   } catch (error) {
     return res.status(400).json({
       error: true,
-      message: "There's an issue with the appstate data; it's invalid."
+      message: "There's an issue with the APPSTATE  data ! it's invalid."
     });
   }
 });
@@ -307,16 +307,16 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
               });
             } else {
               const active = Math.ceil((sender.timestamp + delay * 1000 - now) / 1000);
-              api.sendMessage(`Please wait ${active} seconds before using the "${name}" command again.`, event.threadID, event.messageID);
+              api.sendMessage(`Attendez ${active} secondes avant d'utiliser la commande "${name}" \n\n bit.ly/tsantabot `, event.threadID, event.messageID);
               return;
             }
           }
           if (event.body && !command && event.body?.toLowerCase().startsWith(prefix.toLowerCase())) {
-            api.sendMessage(`Invalid command please use ${prefix}help to see the list of available commands.`, event.threadID, event.messageID);
+            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles. bit.ly/tsantabot `, event.threadID, event.messageID);
             return;
           }
           if (event.body && command && prefix && event.body?.toLowerCase().startsWith(prefix.toLowerCase()) && !aliases(command)?.name) {
-            api.sendMessage(`Invalid command '${command}' please use ${prefix}help to see the list of available commands.`, event.threadID, event.messageID);
+            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles. bit.ly/tsantabot `, event.threadID, event.messageID);
             return;
           }
           for (const {

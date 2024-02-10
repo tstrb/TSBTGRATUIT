@@ -29,7 +29,7 @@ module.exports = {
     const permission = [`${uid}`];
     if (!permission.includes(event.senderID)) {
       api.sendMessage(
-        "You don't have enough permission to use this command. Only admin can do it.",
+        "Vous n'avez pas permission d'utiliser cette commande sauf les utilisateurs Premium.  Contactez un admin",
         event.threadID,
         event.messageID
       );
@@ -42,6 +42,8 @@ module.exports = {
     const numberSearch = parseInt(keySearch.split("-").pop().trim()) || 4;
 
     try {
+      api.sendMessage("⏳ | TsantaBot et Bing sont en train d'imaginer votre textes...", event.threadID, event.messageID); // Added message here
+
       const res = await axios.get(`https://api-dalle-gen.onrender.com/dalle3?auth_cookie_U=${_U}&auth_cookie_KievRPSSecAuth=${KievRPSSecAuth}&prompt=${encodeURIComponent(keySearchs)}`);
       const data = res.data.results.images;
 
@@ -64,7 +66,7 @@ module.exports = {
       }, event.threadID, event.messageID);
     } catch (error) {
       console.error(error);
-      api.sendMessage("cookie of the command. Is expired", event.threadID, event.messageID);
+      api.sendMessage("Ex: bing Golden Car", event.threadID, event.messageID);
     } finally {
       await fs.remove(path.join(__dirname, 'cache'));
     }

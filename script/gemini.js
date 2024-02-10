@@ -1,88 +1,31 @@
-const axios = require("axios");
-const tinyurl = require("tinyurl");
+const axios = require('axios');
 
-module.exports = {
-  config: {
-    name: "tsanta",
-    version: "1.0",
-    author: "TsantaBot",
-    countDown: 5,
-    role: 1,
-    category: "Ai pro",
-  },
-  
-  run: async function ({ message, event, args, commandName }) {
-    try {
-      let shortLink;
-
-      if (event.type === "message_reply") {
-        if (["photo", "sticker"].includes(event.messageReply.attachments?.[0]?.type)) {
-          shortLink = await tinyurl.shorten(event.messageReply.attachments[0].url);
-        }
-      } else {
-        const text = args.join(' ');
-        const response0 = await axios.get(`https://api-samir.onrender.com/Gemini?text=${encodeURIComponent(text)}`);
-
-        if (response0.data && response0.data.candidates && response0.data.candidates.length > 0) {
-          const textContent = response0.data.candidates[0].content.parts[0].text;
-          const ans = `${textContent}`;
-          message.reply({
-            body: ans,
-          }, (err, info) => {
-            global.GoatBot.onReply.set(info.messageID, {
-              commandName,
-              messageID: info.messageID,
-              author: event.senderID,
-            });
-          });
-          return; 
-        }
-      }
-
-      if (!shortLink) {
-        console.error("Error: Invalid message or attachment type");
-        return;
-      }
-
-      const like = `https://api-samir.onrender.com/telegraph?url=${encodeURIComponent(shortLink)}&senderId=Y=777565`;
-      const response4 = await axios.get(like);
-      const link = response4.data.result.link;
-
-      const text = args.join(' ');
-      const vision = `https://api-samir.onrender.com/gemini-pro?text=${encodeURIComponent(text)}&url=${encodeURIComponent(link)}`;
-
-      const response1 = await axios.get(vision);
-      message.reply({
-        body: response1.data,
-      });
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
-  },
-
-  onReply: async function ({ message, event, Reply, args }) {
-    try {
-      let { author, commandName } = Reply;
-      if (event.senderID !== author) return;
-
-      const gif = args.join(' ');
-      const response23 = await axios.get(`https://api-samir.onrender.com/Gemini?text=${encodeURIComponent(gif)}`);
-
-      if (response23.data && response23.data.candidates && response23.data.candidates.length > 0) {
-        const textContent = response23.data.candidates[0].content.parts[0].text;
-        const wh = `${textContent}`;
-        message.reply({
-          body: wh,
-        }, (err, info) => {
-          global.GoatBot.onReply.set(info.messageID, {
-            commandName,
-            messageID: info.messageID,
-            author: event.senderID,
-          });
-        });
-      }
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
-  },
+module.exports.config = {
+  name: 'gemini',
+  version: '1.0.0',
+  credits: '𝖥𝗋𝖺𝗇𝖼𝗂𝗌 𝖫𝗈𝗒𝖽 𝖱𝖺𝗏𝖺𝗅',
+  aliases: ['gem'],
+  description: '𝗚𝗘𝗠𝗜𝗡𝗜 𝗂𝗌 𝖺𝗇 𝖠𝗋𝗍𝗂𝖿𝗂𝖺𝗅 𝖨𝗇𝗍𝖾𝗅𝗅𝗂𝗀𝖾𝗇𝖼𝖾 Pro',
+  usage: '[ 𝖯𝗋𝗈𝗆𝗉𝗍 | 𝖰𝗎𝖾𝗋𝗒 ]',
+  role: 0
 };
+
+module.exports.run = async ({ api, event, args }) => {
+  const query = args.join(" ");
+  if (!query) {
+    api.sendMessage("ℹ️ | 𝖯𝗅𝖾𝖺𝗌𝖾 𝖯𝗋𝗈𝗏𝗂𝖽𝖾 𝖲𝗈𝗆𝖾 𝖰𝗎𝖾𝗌𝗍𝗂𝗈𝗇𝗌 𝖡𝖾𝖿𝗈𝗋𝖾 𝖳𝗁𝖾 𝖢𝗈𝗆𝗆𝖺𝗇𝖽.\n\n𝗘𝗫𝗔𝗠𝗣𝗟𝗘: 𝗀𝖾𝗆𝗂𝗇𝗂 𝗐𝗁𝖺𝗍 𝗂𝗌 Lov ?", event.messageID, event.threadID);
+    return;
+  }
+
+  api.sendMessage(`🔎 | 𝗚𝗘𝗠𝗜𝗡𝗜 𝗂𝗌 𝖺𝗇𝗌𝗐𝖾𝗋𝗂𝗇𝗀 𝗍𝗈 𝗒𝗈𝗎𝗋 𝗊𝗎𝖾𝗌𝗍𝗂𝗈𝗇.\n\n${query}`, event.threadID, () => null, event.messageID);
+
+  try {
+    const response = await axios.get(`https://lianeapi.onrender.com/@hercai/api/gemini?key=j86bwkwo-8hako-12C&query=${encodeURIComponent(query)}`);
+    api.setMessageReaction("✅", event.messageID, (err) => {}, true);
+    api.sendMessage(response.data.message, event.threadID, () => null, event.messageID);
+  } catch (error) {
+    console.error(error);
+    api.setMessageReaction("❎", event.messageID, (err) => {}, true);
+    api.sendMessage("🔴 | 𝖲𝗈𝗆𝖾𝗍𝗁𝗂𝗇𝗀 𝗐𝖾𝗇𝗍 𝗐𝗋𝗈𝗇𝗀 𝗍𝗈 𝗍𝗁𝖾 𝖠𝖯𝖨. 𝖯𝗅𝖾𝖺𝗌𝖾 𝗍𝗋𝗒 𝖺𝗀𝖺𝗂𝗇 𝗅𝖺𝗍𝖾𝗋. ", event.threadID);
+  }
+}; 

@@ -22,21 +22,19 @@ module.exports = {
 
   run: async function ({ api, event, args }) {
     try {
-      let prompt = args.join(' '), id = event.senderID;
-      async function sendMessage(msg) {
-        api.sendMessage(msg, event.threadID, event.messageID);
-      }
+      let prompt = args.join(' ');
+      const senderID = event.senderID;
       
       if (!prompt) {
-        return sendMessage("Ex: gpt4 Salut mon nom est Tsanta.\n\n Usage: " + this.config.name + " Question. ou  “" + this.config.name + " clear”");
+        return api.sendMessage("Ex: gpt4 Salut mon nom est Tsanta.\n\n Usage: " + this.config.name + " Question. ou  “" + this.config.name + " clear”", event.threadID, event.messageID);
       }
       
-      sendMessage("🔍…");
-      const res = await get(url + "/gpt4?prompt=" + prompt + "&idd=" + id);
-      return sendMessage(res.data.gpt4);
+      api.sendMessage("🔍…", event.threadID);
+      const res = await get(`${url}/gpt4?prompt=${encodeURIComponent(prompt)}&idd=${senderID}`);
+      return api.sendMessage(res.data.gpt4, event.threadID);
     } catch (error) {
-      console.error("Error occurred during TTS:", error);
-      return api.sendMessage(error.message, event.threadID, event.messageID);
+      console.error("Error occurred during GPT-4 interaction:", error);
+      return api.sendMessage(error.message, event.threadID);
     }
   }
 };

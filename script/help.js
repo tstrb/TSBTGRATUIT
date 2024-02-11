@@ -5,7 +5,7 @@ const helpConfig = {
   version: '1.0.0',
   role: 0,
   hasPrefix: true,
-  aliases: ['info'],
+  aliases: ['info','aide'],
   description: "GUIDE",
   usage: "Help [page] ou [command]",
   credits: 'TsantaBot',
@@ -21,16 +21,13 @@ async function helpFunction({ api, event, enableCommands, args, Utils, prefix })
       let page = 1;
       let start = (page - 1) * pages;
       let end = start + pages;
-      let helpMessage = `LISTES COMMANDES : 
- (bit.ly/tsantabot)
-
-`;
+      let helpMessage = `📄 | LISTES COMMANDES : `;
       for (let i = start; i < Math.min(end, commands.length); i++) {
         helpMessage += `\t${i + 1}. ➤ ${prefix}${commands[i]} 
 `;
       }
       helpMessage += `
-SRC= TsantaBot 
+TsantaBot : https://bit.ly/tsantabot
 
 `;
       eventCommands.forEach((eventCommand, index) => {
@@ -38,10 +35,10 @@ SRC= TsantaBot
 `;
       });
       helpMessage += `
-📄 Page ${page}/${Math.ceil(commands.length / pages)}.
- 🗒 Pour voir la page suivante, tapez ${prefix}help [numéro de la page] •Ex: help 2. 
- 💡 Pour voir à propos d'une commande spécifique, tapez '${prefix}help [nom du commande]' •Ex: help ai. 
- 📂 Raha hijery ny fomba fampiasana ny commandes dia soratana mitokana fotsiny ilay commande. •Ex: Ai`;
+📄 [Page ${page}/${Math.ceil(commands.length / pages)}] \n
+ ⏭ Pour voir la page suivante, tapez ${prefix}help [numéro de la page] \n- Ex: help 2 \n\n 
+ 💡 Pour voir à propos d'une commande spécifique, tapez '${prefix}help [nom du commande]' \n - Ex: help ai \n\n 
+ 🗂 Raha hijery ny fomba fampiasana ny commandes dia soratana mitokana fotsiny ilay commande.\n - Ex: Ai\n\n 🤖 Raha hanamboatra Chatbot gratuit dia: bit.ly/tsantabot `;
       api.sendMessage(helpMessage, event.threadID, event.messageID);
     } else if (!isNaN(input)) {
       const page = parseInt(input);
@@ -57,7 +54,7 @@ SRC= TsantaBot
 `;
       }
       helpMessage += `
- //Event List:
+ 👌
 
 `;
       eventCommands.forEach((eventCommand, index) => {
@@ -115,7 +112,7 @@ async function handleEventFunction({ api, event, prefix }) {
     messageID,
     body
   } = event;
-  const message = prefix ? '▶️ Mon Prefix est: ' + prefix : " ▶️ Désolé, J'ai  pas un prefix. bit.ly/tsantabot  ";
+  const message = prefix ? '▶️ Mon Prefix est: ' + prefix : " ▶️ Désolé, J'ai  pas un prefix. \n - Tapez: help \n 🌐 : bit.ly/tsantabot  ";
   if (body?.toLowerCase().startsWith('prefix')) {
     api.sendMessage(message, threadID, messageID);
   }

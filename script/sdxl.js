@@ -26,7 +26,7 @@ module.exports = {
     let model = 1;
 
     if (args.length === 0) {
-      return api.sendMessage("▪︎ Code: sdxl [prompt] | [model] \n▪︎ Ex: sdxl Cat cyborg cyber punk | 2 \n ☆NB: Afaka soloina chiffre hafa ilay modèle "2" io, Aucun résultat kosa raha tsy asina chiffre \n\n TsantaBot: https://bit.ly/tsantabot", event.threadID, event.messageID);
+      return api.sendMessage("▪︎ Code: sdxl [prompt] | [model] \n▪︎ Ex: sdxl Cat | 2 \n ☆NB: Afaka soloina chiffre hafa ilay modèle 《2》io, Aucun résultat kosa raha tsy asina chiffre \n\n TsantaBot: https://bit.ly/tsantabot", event.threadID, event.messageID);
     }
 
     if (args.length > 1) {

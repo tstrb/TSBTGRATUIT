@@ -1,8 +1,8 @@
 module.exports.config = {
   name: 'mp',
-  aliases: ['pm'],
+  aliases: ['pm','inbox', 'message'],
   version: '1.0',
-  author: 'luffy',
+  credits: 'TsantaBot',
   countDown: 5,
   role: 0,
   shortDescription: {
@@ -20,7 +20,7 @@ module.exports.config = {
 module.exports.run = async function ({ api, event, args }) {
   if (args.length < 2) {
     return api.sendMessage(
-      'Envoyer un message anonyme vers un utilisateur ID. \n Usage: ID_Utilisateur [message]',
+      '▪︎ Envoyer un message anonyme vers un utilisateur ID. \n ▪︎ Usage: mp [ID_Utilisateur] [message] \n ▪︎ Ex: mp 012345678901234 Salut Fara !',
       event.threadID,
       event.messageID
     );
@@ -37,7 +37,7 @@ module.exports.run = async function ({ api, event, args }) {
     }]
   }, idBox, () => {
     api.sendMessage(
-      `✅ Message envoyé  à ${idBox} \n "${message}" `,
+      `✅ Message envoyé  à [${idBox}] \n\n📄 | "${message}" `,
       event.threadID
     );
   });

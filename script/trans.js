@@ -1,11 +1,11 @@
 module.exports.config = {
-  name: "traduire",
+  name: "traduction",
   version: "1.0.0",
-  aliases : ['translate'],
+  aliases : ['translate', 'traduire','adikao'],
   role: 0,
   hasPrefix: false,
   description: "Text translation",
-  usages: "trans [tl, en] [promt]",
+  usages: "trans mg [promt]",
   credits: "TsantaBot",
   cooldowns: 5,
 };

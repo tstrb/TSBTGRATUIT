@@ -7,7 +7,7 @@ module.exports = {
     aliases: ['pix'],
     author: "TsantaBot",
     version: "2.0",
-    cooldowns: 60,
+    cooldown: 60,
     role: 0,
     shortDescription: {
       en: ""
@@ -26,7 +26,7 @@ module.exports = {
     let model = 1;
 
     if (args.length === 0) {
-      return api.sendMessage("▪︎ Code: pixart [prompt] | [model] \n▪︎ Ex: pixart Cat cyborg cyber punk | 2 \n\n TsantaBot: https://bit.ly/tsantabot", event.threadID, event.messageID);
+      return api.sendMessage("▪︎ Code: pixart [prompt] | [model] \n▪︎ Ex: pixart Cat cyborg cyber punk | 2\n ☆NB: Afaka soloina chiffre hafa ilay 2. rah tsy asina chiffre kosa dia aucun résultat \n\n TsantaBot: https://bit.ly/tsantabot", event.threadID, event.messageID);
     }
 
     if (args.length > 1) {

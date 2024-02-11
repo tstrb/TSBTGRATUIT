@@ -9,7 +9,7 @@ module.exports = {
     version: "1.0",
     author: "Kshitiz",
     countDown: 5,
-    role: 2,
+    role: 1,
     shortDescription: "Bot will leave a group chat",
     longDescription: "",
     category: "admin",

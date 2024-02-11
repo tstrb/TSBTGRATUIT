@@ -7,7 +7,7 @@ module.exports.config = {
   aliases: ['lyrics', 'lyric','karaoke'],
   description: "Lyrics ",
   usage: "Lyrics [prompt]",
-  credits: 'TsantaBot,
+  credits: 'TsantaBot',
   cooldown: 0,
 };
 module.exports.run = async function({

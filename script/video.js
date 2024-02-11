@@ -10,8 +10,8 @@ module.exports = {
     name: "video",
     version: "1.0",
     role: 0,
-    author: "kshitiz",
-    cooldowns: 15,
+    credits: "TsantaBot",
+    cooldown: 160,
     shortdescription: "send YouTube video",
     longdescription: "",
     category: "video",
@@ -33,7 +33,7 @@ module.exports = {
 
 
     if (data.length < 2) {
-      return api.sendMessage("Please specify a video name.", event.threadID);
+      return api.sendMessage("💡 Ex: Video Mr Said Voay \n\n ⏳ Dispo isaky ny 3 minutes\n 🌐 bit.ly/tsantabot ", event.threadID);
     }
 
 
@@ -42,13 +42,13 @@ module.exports = {
 
 
     try {
-      api.sendMessage(`✅ | Searching video for "${videoName}".
-⏳ | Please wait...`, event.threadID);
+      api.sendMessage(`✅ | TsantaBot va chercher "${videoName}"\n
+⏳ | Attendez svp...`, event.threadID);
 
 
       const searchResults = await yts(videoName);
       if (!searchResults.videos.length) {
-        return api.sendMessage("No video found.", event.threadID, event.messageID);
+        return api.sendMessage("Aucun vidéo trouvé !", event.threadID, event.messageID);
       }
 
 
@@ -87,9 +87,9 @@ module.exports = {
 
 
         const message = {
-          body: `📹 | Here's your video
+          body: `✅ Téléchargement succès \n
 
-🔮 | Title: ${video.title}
+▶️ | Titre: ${video.title}
 ⏰ | Duration: ${video.duration.timestamp}`,
           attachment: fs.createReadStream(filePath)
         };

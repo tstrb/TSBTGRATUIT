@@ -100,7 +100,7 @@ module.exports = {
     }
   },
 
-  onReply: async function ({ api, event, Reply }) {
+  run: async function ({ api, event, Reply }) {
     try {
       const handleReply = Reply;
       const { type, author, formData } = handleReply;

@@ -8,15 +8,15 @@ const _U = "1blK93hKnYixhtwAtPdb3D8pFjTaKhmfhX5Z5ZE9dk-moahnidxLq97WCyxPXOsrZRrX
 module.exports = {
   config: {
     name: "bing",
-    aliases: ["bing2"],
+    aliases: ["bi"],
     version: "1.0.2",
     role: 1,
-    countDown: 60,
+    countDown: 180,
     shortDescription: {
       en: "dalle 3 > TsantaBot > Bing"
     },
     longDescription: {
-      en: ""
+      en: "bing dispo chaque 3min"
     },
     category: "dalle3 pro",
     guide: {
@@ -42,13 +42,13 @@ module.exports = {
     const numberSearch = parseInt(keySearch.split("-").pop().trim()) || 4;
 
     try {
-      api.sendMessage("⏳ | TsantaBot et Bing sont en train d'imaginer votre textes...", event.threadID, event.messageID); // Added message here
+      api.sendMessage("⏳ | TsantaBot et Bing sont en train d'imaginer votre textes...\n\n 🆓️ Gratuit: 1 par 3 minutes\n 🌐 : bit.ly/tsantabot", event.threadID, event.messageID); // Added message here
 
       const res = await axios.get(`https://api-dalle-gen.onrender.com/dalle3?auth_cookie_U=${_U}&auth_cookie_KievRPSSecAuth=${KievRPSSecAuth}&prompt=${encodeURIComponent(keySearchs)}`);
       const data = res.data.results.images;
 
       if (!data || data.length === 0) {
-        api.sendMessage("No images found for the provided query.", event.threadID, event.messageID);
+        api.sendMessage("On ne sait pas d'imaginer votre textes. Essayez un autre. ", event.threadID, event.messageID);
         return;
       }
 

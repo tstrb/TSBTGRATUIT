@@ -52,6 +52,42 @@ module.exports = {
   }
 };
 
+// Rest of the code remains the same...
+
+
+  run: async function ({ api, event, args }) {
+    try {
+      const { threadID, senderID } = event;
+      const uuid = getGUID();
+      const formData = getInitialFormData(api.getCurrentUserID(), uuid);
+
+      const audienceResponse = await waitForResponse(api, senderID, threadID, "Choose an audience that can see this article of yours\n1. Everyone\n2. Friend\n3. Only me");
+      formData.input.audience.privacy.base_state = getPrivacySetting(audienceResponse.body);
+
+      const contentResponse = await waitForResponse(api, senderID, threadID, "Reply to this message with the content of the article. If you want to leave it blank, please reply with 0.");
+      if (contentResponse.body !== "0") {
+        formData.input.message.text = contentResponse.body;
+      }
+
+      const mediaResponse = await waitForResponse(api, senderID, threadID, "Reply to this message with a photo or video (you can send multiple attachments). To post without attachments, reply with 0.");
+      if (mediaResponse.body !== "0") {
+        // Handle attachments and update formData
+        const attachments = await processAttachments(mediaResponse.attachments);
+        formData.input.attachments = attachments;
+      }
+
+      // Create post using formData
+      const postID = await createPost(api, formData);
+
+      // Send success message with post ID
+      api.sendMessage(`Post created successfully\nPost ID: ${postID}`, threadID);
+    } catch (error) {
+      console.error(error);
+      api.sendMessage('An error occurred while processing your request.', event.threadID, event.messageID);
+    }
+  }
+};
+
 function getGUID() {
   var sectionLength = Date.now();
   var id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {

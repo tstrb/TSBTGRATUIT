@@ -6,6 +6,7 @@ const app = express();
 const chalk = require('chalk');
 const bodyParser = require('body-parser');
 const script = path.join(__dirname, 'script');
+const cron = require('node-cron');
 const config = fs.existsSync('./data') && fs.existsSync('./data/config.json') ? JSON.parse(fs.readFileSync('./data/config.json', 'utf8')) : createConfig();
 const Utils = new Object({
   commands: new Map(),
@@ -113,10 +114,10 @@ const routes = [{
   path: '/',
   file: 'index.html'
 }, {
-  path: '/guide',
+  path: '/step_by_step_guide',
   file: 'guide.html'
 }, {
-  path: '/online',
+  path: '/online_user',
   file: 'online.html'
 }, ];
 routes.forEach(route => {
@@ -180,7 +181,7 @@ app.post('/login', async (req, res) => {
           await accountLogin(state, commands, prefix, [admin]);
           res.status(200).json({
             success: true,
-            message: '✅ Authentication process completed successfully. login Facebook > You > TsantaBot achieved.'
+            message: 'Authentication process completed successfully; login achieved.'
           });
         } catch (error) {
           console.error(error);
@@ -193,13 +194,13 @@ app.post('/login', async (req, res) => {
     } else {
       return res.status(400).json({
         error: true,
-        message: "There's an issue with the APPSTATE  data ! it's invalid."
+        message: "There's an issue with the appstate data; it's invalid."
       });
     }
   } catch (error) {
     return res.status(400).json({
       error: true,
-      message: "There's an issue with the APPSTATE  data ! it's invalid."
+      message: "There's an issue with the appstate data; it's invalid."
     });
   }
 });
@@ -307,16 +308,16 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
               });
             } else {
               const active = Math.ceil((sender.timestamp + delay * 1000 - now) / 1000);
-              api.sendMessage(`Attendez ${active} secondes avant d'utiliser la commande "${name}" \n\n bit.ly/tsantabot `, event.threadID, event.messageID);
+              api.sendMessage(`Please wait ${active} seconds before using the "${name}" command again.`, event.threadID, event.messageID);
               return;
             }
           }
           if (event.body && !command && event.body?.toLowerCase().startsWith(prefix.toLowerCase())) {
-            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles. bit.ly/tsantabot `, event.threadID, event.messageID);
+            api.sendMessage(`Invalid command please use ${prefix}help to see the list of available commands.`, event.threadID, event.messageID);
             return;
           }
           if (event.body && command && prefix && event.body?.toLowerCase().startsWith(prefix.toLowerCase()) && !aliases(command)?.name) {
-            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles. bit.ly/tsantabot `, event.threadID, event.messageID);
+            api.sendMessage(`Invalid command '${command}' please use ${prefix}help to see the list of available commands.`, event.threadID, event.messageID);
             return;
           }
           for (const {
@@ -405,18 +406,7 @@ function aliases(command) {
   return null;
 }
 async function main() {
-  const cron = require('node-cron');
-  const adminOfConfig = fs.existsSync('./data') && fs.existsSync('./data/config.json') ? JSON.parse(fs.readFileSync('./data/config.json', 'utf8')) : createConfig();
-  cron.schedule(`*/${adminOfConfig[0].masterKey.restartTime} * * * *`, async () => {
-    const history = JSON.parse(fs.readFileSync('./data/history.json', 'utf-8'));
-    history.forEach(user => {
-      (!user || typeof user !== 'object') ? process.exit(1): null;
-      (user.time === undefined || user.time === null || isNaN(user.time)) ? process.exit(1): null;
-      user.time += adminOfConfig[0].masterKey.restartTime * 60;
-    });
-    await fs.writeFileSync('./data/history.json', JSON.stringify(history, null, 2));
-    process.exit(1);
-  });
+  const empty = require('fs-extra');
   const cacheFile = './script/cache';
   if (!fs.existsSync(cacheFile)) fs.mkdirSync(cacheFile);
   const configFile = './data/history.json';
@@ -424,6 +414,19 @@ async function main() {
   const config = JSON.parse(fs.readFileSync(configFile, 'utf-8'));
   const sessionFolder = path.join('./data/session');
   if (!fs.existsSync(sessionFolder)) fs.mkdirSync(sessionFolder);
+  const adminOfConfig = fs.existsSync('./data') && fs.existsSync('./data/config.json') ? JSON.parse(fs.readFileSync('./data/config.json', 'utf8')) : createConfig();
+  cron.schedule(`*/${adminOfConfig[0].masterKey.restartTime} * * * *`, async () => {
+    const history = JSON.parse(fs.readFileSync('./data/history.json', 'utf-8'));
+    history.forEach(user => {
+      (!user || typeof user !== 'object') ? process.exit(1): null;
+      (user.time === undefined || user.time === null || isNaN(user.time)) ? process.exit(1): null;
+      const update = Utils.account.get(user.userid);
+      update ? user.time = update.time : null;
+    });
+    await empty.emptyDir(cacheFile);
+    await fs.writeFileSync('./data/history.json', JSON.stringify(history, null, 2));
+    process.exit(1);
+  });
   try {
     for (const file of fs.readdirSync(sessionFolder)) {
       const filePath = path.join(sessionFolder, file);

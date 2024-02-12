@@ -3,7 +3,7 @@
 "use strict";
 
 // Import required modules
-const utils = require("../utils");
+const utils = require("../fb-chat-api/utils");
 const log = require("npmlog");
 
 // Configuration object for the acceptFriend command

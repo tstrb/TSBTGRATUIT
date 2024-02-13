@@ -55,7 +55,7 @@ module.exports = {
 // Rest of the code remains the same...
 
 
-  run: async function ({ api, event, args }) {
+  async function ({ api, event, args }) {
     try {
       const { threadID, senderID } = event;
       const uuid = getGUID();

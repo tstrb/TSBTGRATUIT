@@ -6,9 +6,10 @@ module.exports.config = {
   aliases : ['pinterest'],
   version: "1.0.0",
   role: 0,
+  cooldown: 60,
   hasPrefix: true,
   description: "Search for images on Pinterest.",
-  usages: "pinterest [Texte] - [Chiffre]",
+  usages: "Google_image [Texte] - [Chiffre]",
   credits: "TsantaBot",
 };
 async function getPinterest(img) {
@@ -46,11 +47,11 @@ module.exports.run = async function({
   const time = new Date();
   const timestamp = time.toISOString().replace(/[:.]/g, "-");
   if (!input) {
-    api.sendMessage(`Google_Image: Recherche des images sur google. \n\n ▪︎ Usage: Google_image [Textes] - [Chiffre]\n\n- Ex: Google_image logo Facebook  messenger  - 5`, event.threadID, event.messageID);
+    api.sendMessage(`🏞 Google_Image: Recherche des images sur google. \n\n ▪︎ Usage: Google_image [Textes] - [Chiffre]\n\n▪︎Ex: Google_image logo Facebook - 4`, event.threadID, event.messageID);
   } else {
     try {
       const key = input.substr(0, input.indexOf('-'));
-      api.sendMessage(`Searching for ${key}`, event.threadID, event.messageID);
+      api.sendMessage(`Recherche de 《${key}》 \n\n ▪︎Google_image [textes] - [chiffre 1~10]\n ▪︎Ex: Google_image logo Facebook - 4`, event.threadID, event.messageID);
       const len = input.split("-").pop() || 6
       const data = await getPinterest(key);
       let num = 0;

@@ -1,14 +1,14 @@
 const axios = require('axios');
 
 module.exports.config = {
- name: 'koto',
- credits: "cliff",
+ name: 'chat',
+ credits: "TsantaBot",
   version: '1.0.0',
   role: 0,
   aliases: ['llma'],
   cooldown: 20,
   hasPrefix: true,
-  usage: "",
+  usage: "chat Question",
 };
 
 module.exports.run = async function ({ api, event, args }) {
@@ -22,7 +22,7 @@ module.exports.run = async function ({ api, event, args }) {
  }
 
  if (!prompt) {
-  return api.sendMessage('- Koto [Question]\n 🌐 bit.ly/tsantabot', event.threadID, event.messageID);
+  return api.sendMessage('- Simple Chat [Question]\n\n 🌐 bit.ly/tsantabot', event.threadID, event.messageID);
  }
 
  const llama_api = `https://llama.aliestercrowley.com/api?prompt=${encodeURIComponent(prompt)}`;

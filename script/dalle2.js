@@ -3,11 +3,11 @@ const fs = require('fs-extra');
 const path = require('path');
 
 module.exports.config = {
-    name: "dalle3",
-    aliases: ["dalle3"],
+    name: "dalle2",
+    aliases: ["dall2"],
     version: "1.0",
     credits: "JARiF",
-    cooldown: 15,
+    cooldown: 180,
     role: 0,
     description: "Generate images by Dalle3",
     hasPrefix: false,
@@ -17,7 +17,7 @@ module.exports.run = async function ({ api, message, args }) {
     try {
         const p = args.join(" ");
 
-        const w = await message.reply("Please wait...");
+        const w = await message.reply("⏰ Attendez...");
 
         // const cookieString = await fs.readFile('dallekey.json', 'utf-8');
         // const cookie = JSON.parse(cookieString);
@@ -49,7 +49,7 @@ module.exports.run = async function ({ api, message, args }) {
             await api.unsendMessage(w.messageID);
 
             await message.reply({
-                body: `✅ | Generated`,
+                body: `✅ | TsantaBot : Voici votre images`,
                 attachment: imgData
             });
         } else {

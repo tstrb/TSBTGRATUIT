@@ -7,8 +7,9 @@ module.exports = {
     aliases: ['pix'],
     author: "TsantaBot",
     version: "2.0",
-    cooldown: 60,
+    cooldown: 260,
     role: 0,
+    hasPrefix:true,
     shortDescription: {
       en: ""
     },
@@ -17,7 +18,7 @@ module.exports = {
     },
     category: "image",
     guide: {
-      en: "[prompt | model]"
+      en: "[prompt - model]"
     }
   },
   run: async function ({ api, event, args }) {
@@ -26,11 +27,11 @@ module.exports = {
     let model = 1;
 
     if (args.length === 0) {
-      return api.sendMessage("▪︎ Code: pixart [prompt] | [model] \n▪︎ Ex: pixart Cat cyborg cyber punk | 2\n ☆NB: Afaka soloina chiffre hafa ilay 2. rah tsy asina chiffre kosa dia aucun résultat \n\n TsantaBot: https://bit.ly/tsantabot", event.threadID, event.messageID);
+      return api.sendMessage("💡 Création images hautes qualités avec Pixart \n\n ▪︎ Code: pixart [prompt] - [model] \n▪︎ Ex: pixart Cat cyborg cyber punk - 2\n\n ☆NB: Afaka soloina chiffre 《1~9》 hafa ilay 《2》 raha hiova styles sy modèle hafa.. \n\n TsantaBot: https://bit.ly/tsantabot", event.threadID, event.messageID);
     }
 
     if (args.length > 1) {
-      const tzt = args.join(" ").split("|").map(item => item.trim());
+      const tzt = args.join(" ").split("-").map(item => item.trim());
       prompt = tzt[0];
       model = tzt[1];
     } else {
@@ -41,7 +42,7 @@ module.exports = {
     let mid = event.messageID;
 
     try {
-      api.sendMessage("⏳ | TsantaBot_pixart est en train d'imaginer votre texte... ", tid, mid);
+      api.sendMessage("⏳ | TsantaBot_pixart est en train d'imaginer votre texte... \n《Tuto: tapez Pixart》", tid, mid);
 
       let enctxt = encodeURIComponent(prompt);
       let url = `http://ger2-1.deploy.sbs:1792/pixart?prompt=${enctxt}&styles=${model}`;

@@ -10,13 +10,13 @@ module.exports = {
     name: "bing",
     aliases: ["bi"],
     version: "1.0.2",
-    role: 1,
-    countDown: 180,
+    role: 0,
+    countDown: 300,
     shortDescription: {
       en: "dalle 3 > TsantaBot > Bing"
     },
     longDescription: {
-      en: "bing dispo chaque 3min"
+      en: "bing dispo chaque 5min"
     },
     category: "dalle3 pro",
     guide: {
@@ -42,7 +42,7 @@ module.exports = {
     const numberSearch = parseInt(keySearch.split("-").pop().trim()) || 4;
 
     try {
-      api.sendMessage("⏳ | TsantaBot et Bing sont en train d'imaginer votre textes...\n\n 🆓️ Gratuit: 1 par 3 minutes\n 🌐 : bit.ly/tsantabot", event.threadID, event.messageID); // Added message here
+      api.sendMessage("⏳ | TsantaBot et Bing sont en train d'imaginer votre textes... (⏰ Attendez..)\n\n_______________\n 🆓️ : Disponible chaque 5min\n 🌐 : bit.ly/tsantabot", event.threadID, event.messageID); // Added message here
 
       const res = await axios.get(`https://api-dalle-gen.onrender.com/dalle3?auth_cookie_U=${_U}&auth_cookie_KievRPSSecAuth=${KievRPSSecAuth}&prompt=${encodeURIComponent(keySearchs)}`);
       const data = res.data.results.images;
@@ -66,7 +66,7 @@ module.exports = {
       }, event.threadID, event.messageID);
     } catch (error) {
       console.error(error);
-      api.sendMessage("🤯 Oh non, Je suis malade ! ", event.threadID, event.messageID);
+      api.sendMessage("🤯 Oh non, Je suis malade. erreur", event.threadID, event.messageID);
     } finally {
       await fs.remove(path.join(__dirname, 'cache'));
     }

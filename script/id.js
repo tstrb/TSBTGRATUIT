@@ -9,7 +9,7 @@ module.exports.config = {
   description: "Get thread ID and group image",
   usages: "id",
   credits: "TsantaBot",
-  cooldowns: 0
+  cooldown: 5
 };
 module.exports.run = async function({
   api,
@@ -28,7 +28,7 @@ module.exports.run = async function({
     if (imageSrc) {
       const callback = async function() {
         api.sendMessage({
-            body: `ID: ${event.threadID}\n\nGroup Image:`,
+            body: `▶️Votre ID FACEBOOK est: ${event.threadID}`,
             attachment: fs.createReadStream(imagePath)
           }, event.threadID,
           () => {
@@ -37,7 +37,7 @@ module.exports.run = async function({
       };
       request(imageSrc).pipe(fs.createWriteStream(imagePath)).on('close', callback);
     } else {
-      api.sendMessage(` ID: ${event.threadID}\n\nThis ID does not have an image.`, event.threadID);
+      api.sendMessage(` ▶️ Votre ID FACEBOOK est: \n\n${event.threadID}`, event.threadID);
     }
   } catch (error) {
     api.sendMessage(error.message, event.threadID, event.messageID);

@@ -2,14 +2,14 @@ const fs = require('fs-extra');
 const pathFile = __dirname + '/cache/autoseen.txt';
 
 module.exports.config = {
-  name: "autoseen",
+  name: "vu",
   version: "1.0.0",
   role: 1,
   credits: "Yan Maglinte",
   description: "Turn on/off automatically seen when new messages are available",
-  aliases: ["vu"],
+  aliases: ["autoseen"],
   cooldown: 0,
-  hasPrefix: false,
+  hasPrefix: true,
   usage: "{pf} on/off",
 };
 
@@ -30,7 +30,7 @@ module.exports. run = async ({ api, event, args }) => {
        fs.writeFileSync(pathFile, 'false');
        api.sendMessage('⚫The autoseen function has been DISABLED for new messages.', event.threadID, event.messageID);
      } else {
-       api.sendMessage('Incorrect syntax', event.threadID, event.messageID);
+       api.sendMessage('Incorrect syntax\n ▪︎Usage: vu on/off  ', event.threadID, event.messageID);
      }
    }
    catch(e) {

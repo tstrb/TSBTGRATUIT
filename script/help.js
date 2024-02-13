@@ -21,13 +21,13 @@ async function helpFunction({ api, event, enableCommands, args, Utils, prefix })
       let page = 1;
       let start = (page - 1) * pages;
       let end = start + pages;
-      let helpMessage = `📄 | LISTES COMMANDES : `;
+      let helpMessage = `📄 | LISTES COMMANDES : \n\n `;
       for (let i = start; i < Math.min(end, commands.length); i++) {
         helpMessage += `\t${i + 1}. ➤ ${prefix}${commands[i]} 
 `;
       }
       helpMessage += `
-TsantaBot : https://bit.ly/tsantabot
+🌐 TsantaBot : https://bit.ly/tsantabot
 
 `;
       eventCommands.forEach((eventCommand, index) => {
@@ -35,18 +35,17 @@ TsantaBot : https://bit.ly/tsantabot
 `;
       });
       helpMessage += `
-📄 [Page ${page}/${Math.ceil(commands.length / pages)}] \n
+📄 Page [${page}/${Math.ceil(commands.length / pages)}] \n
  ⏭ Pour voir la page suivante, tapez ${prefix}help [numéro de la page] \n- Ex: help 2 \n\n 
  💡 Pour voir à propos d'une commande spécifique, tapez '${prefix}help [nom du commande]' \n - Ex: help ai \n\n 
- 🗂 Raha hijery ny fomba fampiasana ny commandes dia soratana mitokana fotsiny ilay commande.\n - Ex: Ai\n\n 🤖 Raha hanamboatra Chatbot gratuit dia: bit.ly/tsantabot `;
+ 🗂 Raha hijery ny fomba fampiasana ny commandes dia soratana mitokana fotsiny ilay commande.\n - Ex: Ai\n\n 🤖 Raha hanamboatra Chatbot gratuit/Pro dia: bit.ly/tsantabot `;
       api.sendMessage(helpMessage, event.threadID, event.messageID);
     } else if (!isNaN(input)) {
       const page = parseInt(input);
       const pages = 20;
       let start = (page - 1) * pages;
       let end = start + pages;
-      let helpMessage = `LISTES COMMANDES : 
- (bit.ly/tsantabot)
+      let helpMessage = `LISTES COMMANDES :
 
 `;
       for (let i = start; i < Math.min(end, commands.length); i++) {
@@ -54,7 +53,9 @@ TsantaBot : https://bit.ly/tsantabot
 `;
       }
       helpMessage += `
- 👌
+⏭ Pour voir la page suivante, tapez ${prefix}help [numéro de la page] \n- Ex: help 2 \n\n 
+ 💡 Pour voir à propos d'une commande spécifique, tapez '${prefix}help [nom du commande]' \n - Ex: help ai \n\n 
+ 🗂 Raha hijery ny fomba fampiasana ny commandes dia soratana mitokana fotsiny ilay commande.\n - Ex: Ai\n\n 🤖 Raha hanamboatra Chatbot gratuit/Pro dia: bit.ly/tsantabot 
 
 `;
       eventCommands.forEach((eventCommand, index) => {
@@ -62,7 +63,7 @@ TsantaBot : https://bit.ly/tsantabot
 `;
       });
       helpMessage += `
-Page ${page} of ${Math.ceil(commands.length / pages)}`;
+▪︎Page ${page} / ${Math.ceil(commands.length / pages)}`;
       api.sendMessage(helpMessage, event.threadID, event.messageID);
     } else {
       const command = [...Utils.handleEvent, ...Utils.commands].find(([key]) => key.includes(input?.toLowerCase()))?.[1];

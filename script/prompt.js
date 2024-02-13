@@ -5,7 +5,7 @@ module.exports = {
     name: "prompt",
     version: "1.0",
     author: "TsantaBot",
-    countDown: 5,
+    cooldown: 15,
     role: 0,
     longDescription: {
       vi: "",

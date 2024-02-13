@@ -7,7 +7,7 @@ module.exports = {
     aliases: ['sdx'],
     author: "TsantaBot",
     version: "2.0",
-    cooldown: 60,
+    cooldown: 160,
     role: 0,
     shortDescription: {
       en: ""
@@ -17,7 +17,7 @@ module.exports = {
     },
     category: "image",
     guide: {
-      en: "[prompt | model]"
+      en: "[prompt - model]"
     }
   },
   run: async function ({ api, event, args }) {
@@ -26,11 +26,11 @@ module.exports = {
     let model = 1;
 
     if (args.length === 0) {
-      return api.sendMessage("▪︎ Code: sdxl [prompt] | [model] \n▪︎ Ex: sdxl Cat | 2 \n ☆NB: Afaka soloina chiffre hafa ilay modèle 《2》io, Aucun résultat kosa raha tsy asina chiffre \n\n TsantaBot: https://bit.ly/tsantabot", event.threadID, event.messageID);
+      return api.sendMessage("▪︎ Code: sdxl [prompt] - [model] \n▪︎ Ex: sdxl Cat | 2 \n ☆NB: Afaka soloina modèle chiffre《1~9》 hafa ilay modèle 《2》io, Aucun résultat kosa raha tsy asina《-》 sy chiffre  \n\n TsantaBot: https://bit.ly/tsantabot", event.threadID, event.messageID);
     }
 
     if (args.length > 1) {
-      const tzt = args.join(" ").split("|").map(item => item.trim());
+      const tzt = args.join(" ").split("-").map(item => item.trim());
       prompt = tzt[0];
       model = tzt[1];
     } else {

@@ -13,11 +13,11 @@ module.exports.config = {
 module.exports.run = async ({ api, event, args }) => {
   const query = args.join(" ");
   if (!query) {
-    api.sendMessage("ℹ️ | 𝖯𝗅𝖾𝖺𝗌𝖾 𝖯𝗋𝗈𝗏𝗂𝖽𝖾 𝖲𝗈𝗆𝖾 𝖰𝗎𝖾𝗌𝗍𝗂𝗈𝗇𝗌 𝖡𝖾𝖿𝗈𝗋𝖾 𝖳𝗁𝖾 𝖢𝗈𝗆𝗆𝖺𝗇𝖽.\n\n𝗘𝗫𝗔𝗠𝗣𝗟𝗘: 𝗀𝖾𝗆𝗂𝗇𝗂 𝗐𝗁𝖺𝗍 𝗂𝗌 Lov ?", event.messageID, event.threadID);
+    api.sendMessage(`ℹ️ Gemini Ai peut répondre à votre question.  \n\n ▪︎ Usage: Gemini + Questions \n▪︎Ex: Gemini Bonjour, tu es là ?\n\n ▪︎ bit.ly/tsantabot `, event.messageID, event.threadID);
     return;
   }
 
-  api.sendMessage(`🔎 | 𝗚𝗘𝗠𝗜𝗡𝗜 𝗂𝗌 𝖺𝗇𝗌𝗐𝖾𝗋𝗂𝗇𝗀 𝗍𝗈 𝗒𝗈𝗎𝗋 𝗊𝗎𝖾𝗌𝗍𝗂𝗈𝗇.\n\n${query}`, event.threadID, () => null, event.messageID);
+  api.sendMessage(`✍ | 𝗚𝗘𝗠𝗜𝗡𝗜 en train d'écrire ...`, event.threadID, () => null, event.messageID);
 
   try {
     const response = await axios.get(`https://lianeapi.onrender.com/@hercai/api/gemini?key=j86bwkwo-8hako-12C&query=${encodeURIComponent(query)}`);

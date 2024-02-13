@@ -1,91 +1,43 @@
-const axios = require("axios");
-const fs = require("fs");
-const cookie = 'fwjU8yQqoChhkIKuxNZuzuZ6Il_3Cp2S832gNK2Akgtq3nqrmi2kQaFFcnnjIFMaWB9NmQ.';
+const axios = require('axios');
 
 module.exports.config = {
     name: "tsanta",
-    version: "1.0",
-    credits: "rehat--",
-    cooldown: 30,
+    version: "1.0.0",
     role: 0,
-    hasPrefix: false,
-    description: "Artificial Intelligence Tsanta" ,
-    usages: "{pn} <query>",
+    credits: "cliff mod Aesther",//api by jonell
+    description: "Gpt architecture",
+    usePrefix: true,
+    Category: "GPT4",
+    cooldown: 10,
 };
 
-module.exports.run = async function ({ api, event, args, commandName, message }) {
-    const uid = event.senderID;
-    const prompt = args.join(" ");
-
-    if (!prompt) {
-        api.sendMessage("💡Usage: Tsanta + Question \n💡Usage2: Tsanta + répondre image + Question", event.threadID, event.messageID);
-        return;
-    }
-
-    if (prompt.toLowerCase() === "clear") {
-        clearHistory();
-        const clear = await axios.get(`https://project-gemini-daac55836bf7.herokuapp.com/api/gemini?query=clear&uid=${uid}&cookie=${cookie}`);
-        api.sendMessage(clear.data.message, event.threadID);
-        return;
-    }
-
-    let apiUrl = `https://project-gemini-daac55836bf7.herokuapp.com/api/gemini?query=${encodeURIComponent(prompt)}&uid=${uid}&cookie=${cookie}`;
-
-    if (event.type === "message_reply") {
-        const imageUrl = event.messageReply.attachments[0]?.url;
-        if (imageUrl) {
-            apiUrl += `&attachment=${encodeURIComponent(imageUrl)}`;
-        }
-    }
-
+module.exports.run = async function ({ api, event, args }) {
     try {
-        const response = await axios.get(apiUrl);
-        const result = response.data;
+        const { messageID, messageReply } = event;
+        let prompt = args.join(' ');
 
-        let content = result.message;
-        let imageUrls = result.imageUrls;
-
-        let replyOptions = {
-            body: content,
-        };
-
-        if (Array.isArray(imageUrls) && imageUrls.length > 0) {
-            const imageStreams = [];
-
-            if (!fs.existsSync(`${__dirname}/cache`)) {
-                fs.mkdirSync(`${__dirname}/cache`);
-            }
-
-            for (let i = 0; i < imageUrls.length; i++) {
-                const imageUrl = imageUrls[i];
-                const imagePath = `${__dirname}/cache/image` + (i + 1) + ".png";
-
-                try {
-                    const imageResponse = await axios.get(imageUrl, {
-                        responseType: "arraybuffer",
-                    });
-                    fs.writeFileSync(imagePath, imageResponse.data);
-                    imageStreams.push(fs.createReadStream(imagePath));
-                } catch (error) {
-                    console.error("Error occurred while downloading and saving the image:", error);
-                    api.sendMessage('An error occurred.', event.threadID);
-                }
-            }
-
-            replyOptions.attachment = imageStreams;
+        if (messageReply) {
+            const repliedMessage = messageReply.body;
+            prompt = `${repliedMessage} ${prompt}`;
         }
 
-        api.sendMessage(replyOptions, event.threadID, (err, info) => {
-            if (!err) {
-                global.GoatBot.onReply.set(info.messageID, {
-                    commandName,
-                    messageID: info.messageID,
-                    author: event.senderID,
-                });
-            }
-        });
+        if (!prompt) {
+            return api.sendMessage('💡TsantaBot : bit.ly/tsantabot \n━━━━━━━\n➤ Info: Discutez avec Tsanta simple Ai.\n➤ Usage: Tsanta + question \n➤ Ex: Tsanta Comment allez-vous?', event.threadID, messageID);
+        }
+
+        const gpt4_api = `https://ai-chat-gpt-4-lite.onrender.com/api/hercai?question=${encodeURIComponent(prompt)}`;
+
+        const response = await axios.get(gpt4_api);
+
+        if (response.data && response.data.reply) {
+            const generatedText = response.data.reply;
+            api.sendMessage({ body: "TsantaBot :\n━━━━━━\n" + generatedText, attachment: null }, event.threadID, messageID); // Added "Pretend: " to the generatedText
+        } else {
+            console.error('API response did not contain expected data:', response.data);
+            api.sendMessage(`❌ An error occurred while generating the text response. Please try again later. Response data: ${JSON.stringify(response.data)}`, event.threadID, messageID);
+        }
     } catch (error) {
-        api.sendMessage('An error occurred.', event.threadID);
-        console.error(error.message);
+        console.error('Error:', error);
+        api.sendMessage(`❌ An error occurred while generating the text response. Please try again later. Error details: ${error.message}`, event.threadID, event.messageID);
     }
 };

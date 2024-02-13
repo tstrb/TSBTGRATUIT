@@ -8,7 +8,7 @@ module.exports.config = {
     description: "Gpt architecture",
     usePrefix: true,
     Category: "GPT4",
-    cooldown: 5,
+    cooldown: 10,
 };
 
 module.exports.run = async function ({ api, event, args }) {
@@ -22,7 +22,7 @@ module.exports.run = async function ({ api, event, args }) {
         }
 
         if (!prompt) {
-            return api.sendMessage('💬»TsantaBot :\n━━━━━━━━━━\n➤𝗣interest\n➤𝗧rans(traslate)\n➤😁(vocal-fr)', event.threadID, messageID);
+            return api.sendMessage('💡TsantaBot : bit.ly/tsantabot \n━━━━━━━\n➤ Info: Discutez avec TsantaBot simple Ai.\n➤ Usage: Ai + question \n➤ Ex: Ai Comment allez-vous?', event.threadID, messageID);
         }
 
         const gpt4_api = `https://ai-chat-gpt-4-lite.onrender.com/api/hercai?question=${encodeURIComponent(prompt)}`;
@@ -31,7 +31,7 @@ module.exports.run = async function ({ api, event, args }) {
 
         if (response.data && response.data.reply) {
             const generatedText = response.data.reply;
-            api.sendMessage({ body: "💬»TsantaBot :\n━━━━━━━━━━\n" + generatedText, attachment: null }, event.threadID, messageID); // Added "Pretend: " to the generatedText
+            api.sendMessage({ body: "TsantaBot_Ai :\n━━━━━━\n" + generatedText, attachment: null }, event.threadID, messageID); // Added "Pretend: " to the generatedText
         } else {
             console.error('API response did not contain expected data:', response.data);
             api.sendMessage(`❌ An error occurred while generating the text response. Please try again later. Response data: ${JSON.stringify(response.data)}`, event.threadID, messageID);

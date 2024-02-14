@@ -3,12 +3,12 @@ module.exports.config = {
   name: 'parole',
   version: '1.0.0',
   role: 0,
-  hasPrefix: false,
+  hasPrefix: true,
   aliases: ['lyrics', 'lyric','karaoke'],
   description: "Lyrics ",
   usage: "Lyrics [prompt]",
   credits: 'TsantaBot',
-  cooldown: 0,
+  cooldown: 10,
 };
 module.exports.run = async function({
   api,
@@ -17,7 +17,7 @@ module.exports.run = async function({
 }) {
   const input = args.join(' ');
   if (!input) {
-    api.sendMessage(`- Exemple: parole Adele Hello`, event.threadID, event.messageID);
+    api.sendMessage(`- Exemple: parole Adele Don't you remember `, event.threadID, event.messageID);
     return;
   }
   api.sendMessage(`Attendez svp ⏳`, event.threadID, event.messageID);

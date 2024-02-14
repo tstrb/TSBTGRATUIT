@@ -11,7 +11,7 @@ module.exports.config = {
   role: 0,
   credits: 'Zetsu',
   description: 'An Ai!',
-  hasPrefix: fase,
+  hasPrefix: true,
   usage: 'Cid [prompt]/clear',
   cooldowns: 5,
 };

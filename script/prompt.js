@@ -5,7 +5,7 @@ module.exports = {
     name: "prompt",
     version: "1.0",
     author: "TsantaBot",
-    cooldown: 15,
+    cooldown: 25,
     role: 0,
     longDescription: {
       vi: "",
@@ -22,12 +22,12 @@ module.exports = {
         if (["photo", "sticker"].includes(event.messageReply.attachments[0]?.type)) {
           imageUrl = event.messageReply.attachments[0].url;
         } else {
-          return api.sendMessage({ body: `Obtenir  des prompts Midjourney / DALLE-3 à partir de votre image \n Répondez  à une photo. \n\n 🌐 https://bit.ly/tsantabot` }, event.threadID);
+          return api.sendMessage({ body: `▪︎Obtenir  des prompts Midjourney / DALLE-3 à partir de votre image \n ▪︎Répondez  à une photo. \n\n 🌐 https://bit.ly/tsantabot` }, event.threadID);
         }
       } else if (args[0]?.match(/(https?:\/\/.*\.(?:png|jpg|jpeg))/g)) {
         imageUrl = args[0];
       } else if (!khankirChele) {
-        return api.sendMessage({ body: `Obtenir  des prompts Midjourney a partir de votre image \n Repondez a une photo. \n\n Visitez TsantaBot sur: https://bit.ly/tsantabot` }, event.threadID);
+        return api.sendMessage({ body: `▪︎Obtenir  des prompts Midjourney a partir de votre image \n ▪︎Repondez a une photo. \n\n Visitez TsantaBot sur: https://bit.ly/tsantabot` }, event.threadID);
       }
 
       if (imageUrl) {
@@ -39,7 +39,7 @@ module.exports = {
         const response = await axios.get(`https://www.api.vyturex.com/promptgen?content=${encodeURIComponent(khankirChele)}`);
         const prompt = response.data;
 
-        await api.sendMessage(prompt, event.threadID);
+        await api.sendMessage(`PROMPT (bit.ly/tsantabot)\n\n${prompt}`, event.threadID);
       }
     } catch (error) {
       console.error(error);

@@ -2,11 +2,11 @@ module.exports.config = {
   name: 'removebg',
   version: '1.1.1',
   role: 0,
-  credits: 'fixed by Jonell',
-  description: 'Edit photo',
-  hasPrefix: false,
+  credits: 'TsantaBot',
+  description: 'Remov background photo',
+  hasPrefix: true,
   usage: 'Reply images or URL images',
-  cooldowns: 2,
+  cooldown: 120,
   dependencies: {
     'form-data': '',
     'image-downloader': ''
@@ -25,9 +25,9 @@ module.exports.run = async function ({
   args
 }) {
   try {
-    if (event.type !== "message_reply") return api.sendMessage("🖼️ | You must reply to the photo you want to remove the background from.", event.threadID, event.messageID);
+    if (event.type !== "message_reply") return api.sendMessage("🏞 Tuto: Remove background image.\n\n ▪︎Usage: Répondez à une photo (puis écris le mot-clé : REMOVEBG)\n\n ▪︎ bit.ly/tsantabot", event.threadID, event.messageID);
 
-    api.sendMessage("🖼 | Removing Background Picture you provided. Please Wait....", event.threadID, event.messageID);
+    api.sendMessage("⏰ | Attendez svp...", event.threadID, event.messageID);
 
     if (!event.messageReply.attachments || event.messageReply.attachments.length == 0) return api.sendMessage("✅ | Removed Background Has Been Successfully ", event.threadID, event.messageID);
     if (event.messageReply.attachments[0].type != "photo") return api.sendMessage("❌ | This Media is not available", event.threadID, event.messageID);

@@ -2,7 +2,7 @@ const path = require('path');
 module.exports.config = {
   name: "music",
   version: "1.0.0",
-  role: 0,
+  role: 1,
   hasPrefix: true,
   aliases: ['play'],
   usage: 'Music [promt]',

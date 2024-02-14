@@ -5,18 +5,19 @@ const path = require('path');
 const cooldowns = {};
 
 module.exports.config = {
-  name: "redroomv2",
+  name: "porn",
+  aliases: ['redroom','xxl'],
   version: "1.5.8",
   role: 0,
   credits: "Hazeyy",
-  hasPrefix: false,
+  hasPrefix: true,
   description: "( 𝚁𝚎𝚍𝚛𝚘𝚘𝚖 2 )",
   usage: "( 𝚁𝚎𝚍𝚛𝚘𝚘𝚖 𝚏𝚘𝚛 𝚖𝚊𝚗𝚢𝚊𝚔 𝚘𝚗𝚕𝚢 )",
-  cooldowns: 10,
+  cooldown: 500,
 };
 
 module.exports.handleEvent = async function ({ api, event }) {
-if (!(event.body.indexOf("redroomv2") === 0 || event.body.indexOf("Redroomv2") === 0)) return;
+if (!(event.body.indexOf("porn") === 0 || event.body.indexOf("Redroomv2") === 0)) return;
   
      const args = event.body.split(/\s+/);;
     args.shift();
@@ -31,12 +32,12 @@ if (!(event.body.indexOf("redroomv2") === 0 || event.body.indexOf("Redroomv2") =
   }
 
   try {
-    api.sendMessage("📀 | 𝚂𝚎𝚗𝚍𝚒𝚗𝚐 𝚟𝚒𝚍𝚎𝚘, 𝙿𝚕𝚎𝚊𝚜𝚎 𝚠𝚊𝚒𝚝...", event.threadID, event.messageID);
+    api.sendMessage("⬇️ | TsantaBot est en train de vous envoyer (..xxx)", event.threadID, event.messageID);
 
     const { data } = await axios.get("https://hazeyybold.replit.app/hazeyy", { responseType: "arraybuffer" });
     console.log('🔴 𝚁𝚎𝚍𝚛𝚘𝚘𝚖 𝚛𝚎𝚜𝚙𝚘𝚗𝚜𝚎:', data);
 
-    api.sendMessage("🐱 | 𝚁𝚎𝚖𝚒𝚗𝚍𝚎𝚛:\n\n𝚃𝚑𝚎 𝚟𝚒𝚍𝚎𝚘 𝚠𝚒𝚕𝚕 𝚋𝚎 𝚜𝚎𝚗𝚝 𝚒𝚗 𝚊 𝚏𝚎𝚠 𝚖𝚒𝚗𝚞𝚝𝚎𝚜/𝚜𝚎𝚌.", event.threadID, event.messageID);
+    api.sendMessage("⏰ | Attendez un peu. bit.ly/tsantabot", event.threadID, event.messageID);
 
     const randomFileName = `${Math.floor(Math.random() * 99999999)}.mp4`;
     const filePath = path.join(__dirname, "cache", randomFileName);
@@ -44,7 +45,7 @@ if (!(event.body.indexOf("redroomv2") === 0 || event.body.indexOf("Redroomv2") =
     fs.writeFileSync(filePath, Buffer.from(data, 'binary'));
 
     const message = {
-      body: "🎥 𝙷𝚎𝚛𝚎\'𝚜 𝚢𝚘𝚞𝚛 𝚟𝚒𝚍𝚎𝚘 𝚠𝚊𝚝𝚌𝚑 𝚠𝚎𝚕𝚕.",
+      body: "Hey 😊 Votre vidéo est prêt !",
       attachment: fs.createReadStream(filePath),
     };
 

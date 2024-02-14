@@ -2,12 +2,12 @@ const path = require('path');
 module.exports.config = {
   name: "sing",
   version: "1.0.0",
-  role: 0,
+  role: 1,
   hasPrefix: false,
   aliases: ['play'],
   usage: 'Music [promt]',
   description: 'Search music in youtube',
-  credits: 'Deveploper',
+  credits: 'TsantaBot',
   cooldown: 5
 };
 module.exports.run = async function({

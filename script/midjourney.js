@@ -4,7 +4,7 @@ const fs = require("fs");
 module.exports.config = {
   name: "midjourney",
   version: "1.3",
-  role: 0,
+  role: 1,
   credits: "Hazeyy",
   description: "( 𝙼𝚒𝚍𝚓𝚘𝚞𝚛𝚗𝚎𝚢 𝚟4 )",
   hasPrefix: false,

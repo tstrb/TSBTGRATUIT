@@ -498,7 +498,7 @@ async function createDatabase() {
   }
   return database;
 }
-main()
+
 
 //ACCEPT FRIEND ETO
 const cron = require('node-cron');
@@ -601,3 +601,4 @@ module.exports = async function ({ api, getText }) {
 
     acceptPending(config.acceptPending);
 };
+main()

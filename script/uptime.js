@@ -7,8 +7,8 @@ module.exports.config = {
     role: 0,
     credits: "TsantaBot",
     description: "uptime",
-    hasPrefix: true,
-    cooldowns: 5,
+    hasPrefix: "true",
+    cooldown: 5,
     aliases: ["up","cœur"]
 };
 

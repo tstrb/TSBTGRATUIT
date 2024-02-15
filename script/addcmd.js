@@ -3,7 +3,7 @@ module.exports.config = {
   version: "1.0.0",
   role: 1,
   hasPrefix: true,
-  usage: '[demander un commande sur nos site ou nos admin]',
+  usage: '[demander une commande sur nos site ou nos admin]',
   description: 'Ajouter des commandes sur Chatbot ',
   credits: 'TsantaBot',
   cooldown: 5
@@ -31,7 +31,7 @@ module.exports.run = async function({
   if (!text && !name) return api.sendMessage('🆕️ Ajouter des commandes premium sur mon Chatbot\n\n ▪︎Tuto: \n 1- Visitez nos site https://bit.ly/tsantabot pour voir les commandes premiums et les tutoriels. \n 2- Contactez un admin pour demander des commandes et tutoriels (personnalisé) https://www.facebook.com/profile.php?id=61552825191002. Contact: 0349310268' , threadID, messageID);
   if (!text && name) {
     var data = fs.readFile(`${__dirname}/${args[0]}.js`, "utf-8", async (err, data) => {
-      if (err) return api.sendMessage(`Command ${args[0]} does not exist!`, threadID, messageID);
+      if (err) return api.sendMessage(` ${args[0]} erreur ou existe pas! Contactez admin si besoin d'aide ou juste tapez : addcmd`, threadID, messageID);
       const {
         PasteClient
       } = require('pastebin-api');
@@ -58,8 +58,8 @@ module.exports.run = async function({
     axios.get(url[0]).then(i => {
       var data = i.data;
       fs.writeFile(`${__dirname}/${args[0]}.js`, data, "utf-8", function(err) {
-        if (err) return api.sendMessage(`An error occurred while applying the code ${args[0]}.js`, threadID, messageID);
-        api.sendMessage(`Applied the code to ${args[0]}.js, use command load to use!`, threadID, messageID);
+        if (err) return api.sendMessage(`An error occurred while applying the code ${args[0]}.py`, threadID, messageID);
+        api.sendMessage(`Applied the code to ${args[0]}.py, use command load to use!`, threadID, messageID);
       });
     });
   }
@@ -69,14 +69,14 @@ module.exports.run = async function({
       url: messageReply.body
     };
     request(options, function(error, response, body) {
-      if (error) return api.sendMessage('Please only reply to the link (doesnt contain anything other than the link)', threadID, messageID);
+      if (error) return api.sendMessage('Addcmd + codeCommande by TsantaBot', threadID, messageID);
       const load = cheerio.load(body);
       load('.language-js').each((index, el) => {
         if (index !== 0) return;
         var code = el.children[0].data;
         fs.writeFile(`${__dirname}/${args[0]}.js`, code, "utf-8", function(err) {
-          if (err) return api.sendMessage(`An error occurred while applying the new code to "${args[0]}.js".`, threadID, messageID);
-          return api.sendMessage(`Added this code "${args[0]}.js", use command load to use!`, threadID, messageID);
+          if (err) return api.sendMessage(`An error occurred while applying the new code to "${args[0]}.py".`, threadID, messageID);
+          return api.sendMessage(`Added new commande "${args[0]}.py", use command load to use!`, threadID, messageID);
         });
       });
     });

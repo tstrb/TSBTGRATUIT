@@ -5,9 +5,9 @@ module.exports.config = {
     name: "uptime",
     version: "1.0.2",
     role: 0,
-    credits: "cliff",
+    credits: "TsantaBot",
     description: "uptime",
-    hasPrefix: false,
+    hasPrefix: true,
     cooldowns: 5,
     aliases: ["up","cœur"]
 };
@@ -43,7 +43,7 @@ module.exports.run = async ({ api, event }) => {
     };
 
     const timeStart = Date.now();
-    const returnResult = `BOT has been working for ${hours} hour(s) ${minutes} minute(s) ${seconds} second(s).\n\n❖ Cpu usage: ${usage.cpu.toFixed(1)}%\n❖ RAM usage: ${byte2mb(usage.memory)}\n❖ Cores: ${os.cpus().length}\n❖ Ping: ${Date.now() - timeStart}ms\n❖ Operating System Platform: ${osInfo.platform}\n❖ System CPU Architecture: ${osInfo.architecture} \n\n ✅TsantaBot website : bit.ly/tsantabot `;
+    const returnResult = `Ce Chatbot est vivant et fonctionne depuis ${hours}H ${minutes}Min ${seconds}Sec sur bit.ly/tsantabot.\n\n✅ Cpu usage: ${usage.cpu.toFixed(1)}%\n✅ RAM usage: ${byte2mb(usage.memory)}\n✅ Cores: ${os.cpus().length}\n✅ Coeur: ${Date.now() - timeStart}ms\n✅ System Platform: ${osInfo.platform}\n✅ System CPU Arch: ${osInfo.architecture} \n♥ Vie: ${days}j ${hours}h ${minutes}min ${seconds}s\n\n 🌐TsantaBot (Créez votre Chatbot sur) : bit.ly/tsantabot `;
 
     return api.sendMessage(returnResult, event.threadID, event.messageID);
 };

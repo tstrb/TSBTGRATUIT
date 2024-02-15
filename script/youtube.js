@@ -7,7 +7,7 @@ const yts = require("yt-search");
 
 module.exports = {
   config: {
-    name: "video",
+    name: "youtube",
     version: "1.0",
     role: 0,
     credits: "TsantaBot",
@@ -33,7 +33,7 @@ module.exports = {
 
 
     if (data.length < 2) {
-      return api.sendMessage("💡Ex: Video Mr Said Veloma \n\n 🆓️ Dispo isaky ny 5 minutes\n 🌐 bit.ly/tsantabot ", event.threadID);
+      return api.sendMessage("💡Ex: YouTube Mr Said Veloma \n\n 🆓️ Dispo isaky ny 5 minutes\n 🌐 bit.ly/tsantabot ", event.threadID);
     }
 
 
@@ -87,7 +87,7 @@ module.exports = {
 
 
         const message = {
-          body: `✅ TsantaBot: Téléchargement succès \n
+          body: `✅ | TsantaBot : Votre vidéo est prête \n\n
 
 ▶️ | Titre: ${video.title}
 ⏰ | Duration: ${video.duration.timestamp}`,

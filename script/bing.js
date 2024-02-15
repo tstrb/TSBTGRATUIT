@@ -11,7 +11,7 @@ module.exports = {
     aliases: ["bi"],
     version: "1.0.2",
     role: 0,
-    hasPrefix:true,
+    hasPrefix: "true",
     countDown: 300,
     shortDescription: {
       en: "dalle 3 > TsantaBot > Bing"

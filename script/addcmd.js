@@ -1,10 +1,10 @@
 module.exports.config = {
-  name: "adc",
+  name: "addcmd",
   version: "1.0.0",
   role: 1,
-  hasPrefix: false,
-  usage: '[reply or text]',
-  description: 'Apply code from buildtooldev and pastebin',
+  hasPrefix: true,
+  usage: '[demander un commande sur nos site ou nos admin]',
+  description: 'Ajouter des commandes sur Chatbot ',
   credits: 'TsantaBot',
   cooldown: 5
 };
@@ -28,7 +28,7 @@ module.exports.run = async function({
   if (type == "message_reply") {
     var text = messageReply.body;
   }
-  if (!text && !name) return api.sendMessage('Please reply to the link you want to apply the code to or write the file name to upload the code to pastebin!', threadID, messageID);
+  if (!text && !name) return api.sendMessage('🆕️ Ajouter des commandes premium sur mon Chatbot\n\n ▪︎Tuto: \n 1- Visitez nos site https://bit.ly/tsantabot pour voir les commandes premiums et les tutoriels. \n 2- Contactez un admin pour demander des commandes et tutoriels (personnalisé) https://www.facebook.com/profile.php?id=61552825191002. Contact: 0349310268' , threadID, messageID);
   if (!text && name) {
     var data = fs.readFile(`${__dirname}/${args[0]}.js`, "utf-8", async (err, data) => {
       if (err) return api.sendMessage(`Command ${args[0]} does not exist!`, threadID, messageID);

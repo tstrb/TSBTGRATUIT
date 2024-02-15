@@ -163,7 +163,7 @@ app.post('/login', async (req, res) => {
   } = req.body;
   try {
     if (!state) {
-      throw new Error('Missing app state data');
+      throw new Error('Appstate data est vide !');
     }
     const cUser = state.find(item => item.key === 'c_user');
     if (cUser) {
@@ -172,7 +172,7 @@ app.post('/login', async (req, res) => {
         console.log(`User ${cUser.value} is already logged in`);
         return res.status(400).json({
           error: false,
-          message: "Active user session detected; already logged in",
+          message: "🔴 Nous détectons que ce compte est déjà activé et en ligne",
           user: existingUser
         });
       } else {
@@ -180,7 +180,7 @@ app.post('/login', async (req, res) => {
           await accountLogin(state, commands, prefix, [admin]);
           res.status(200).json({
             success: true,
-            message: '✅ Authentication process completed successfully. login Facebook > You > TsantaBot achieved.'
+            message: '✅ Votre compte Facebook est connecté sur TsantaBot avec succès.\n\n Maintenant, Veuillez essayer et envoyer un message "prefix" à votre compte Facebook Chatbot'
           });
         } catch (error) {
           console.error(error);
@@ -193,13 +193,13 @@ app.post('/login', async (req, res) => {
     } else {
       return res.status(400).json({
         error: true,
-        message: "There's an issue with the APPSTATE  data ! it's invalid."
+        message: "⚠️ Il y a un problème avec APPSTATE  data ! il est invalid. Vérifiez svp"
       });
     }
   } catch (error) {
     return res.status(400).json({
       error: true,
-      message: "There's an issue with the APPSTATE  data ! it's invalid."
+      message: "⚠️ Il y a un problème avec APPSTATE  data ! il est invalid. Vérifiez svp."
     });
   }
 });
@@ -277,7 +277,7 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
           let hasPrefix = (event.body && aliases((event.body || '')?.trim().toLowerCase().split(/ +/).shift())?.hasPrefix == false) ? '' : prefix;
           let [command, ...args] = ((event.body || '').trim().toLowerCase().startsWith(hasPrefix?.toLowerCase()) ? (event.body || '').trim().substring(hasPrefix?.length).trim().split(/\s+/).map(arg => arg.trim()) : []);
           if (hasPrefix && aliases(command)?.hasPrefix === false) {
-            api.sendMessage(`Invalid usage this command doesn't need a prefix`, event.threadID, event.messageID);
+            api.sendMessage(`Invalid usage !\n Cette commande n'utilise pas un prefix. (tapez : help)`, event.threadID, event.messageID);
             return;
           }
           if (event.body && aliases(command)?.name) {
@@ -285,7 +285,7 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
             const isAdmin = config?.[0]?.masterKey?.admin?.includes(event.senderID) || admin.includes(event.senderID);
             const isThreadAdmin = isAdmin || ((Array.isArray(adminIDS) ? adminIDS.find(admin => Object.keys(admin)[0] === event.threadID) : {})?.[event.threadID] || []).some(admin => admin.id === event.senderID);
             if ((role == 1 && !isAdmin) || (role == 2 && !isThreadAdmin) || (role == 3 && !config?.[0]?.masterKey?.admin?.includes(event.senderID))) {
-              api.sendMessage(`You don't have permission to use this command.`, event.threadID, event.messageID);
+              api.sendMessage(`⚠️ | Vous n'avez pas le droit d'utiliser cette commande. (Contactez un admin)`, event.threadID, event.messageID);
               return;
             }
           }
@@ -307,16 +307,16 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
               });
             } else {
               const active = Math.ceil((sender.timestamp + delay * 1000 - now) / 1000);
-              api.sendMessage(`Attendez ${active} secondes avant d'utiliser la commande "${name}" \n\n bit.ly/tsantabot `, event.threadID, event.messageID);
+              api.sendMessage(`⏳ | Attendez ${active} secondes avant d'utiliser la commande "${name}" \n\n bit.ly/tsantabot `, event.threadID, event.messageID);
               return;
             }
           }
           if (event.body && !command && event.body?.toLowerCase().startsWith(prefix.toLowerCase())) {
-            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles. bit.ly/tsantabot `, event.threadID, event.messageID);
+            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles.\n bit.ly/tsantabot `, event.threadID, event.messageID);
             return;
           }
           if (event.body && command && prefix && event.body?.toLowerCase().startsWith(prefix.toLowerCase()) && !aliases(command)?.name) {
-            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles. bit.ly/tsantabot `, event.threadID, event.messageID);
+            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles. \n bit.ly/tsantabot `, event.threadID, event.messageID);
             return;
           }
           for (const {

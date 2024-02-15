@@ -11,6 +11,7 @@ module.exports = {
     aliases: ["bi"],
     version: "1.0.2",
     role: 0,
+    hasPrefix:true,
     countDown: 300,
     shortDescription: {
       en: "dalle 3 > TsantaBot > Bing"
@@ -26,15 +27,6 @@ module.exports = {
 
   run: async function ({ api, event, args }) {
     const uid = event.senderID;
-    const permission = [`${uid}`];
-    if (!permission.includes(event.senderID)) {
-      api.sendMessage(
-        "You don't have enough permission to use this command. Only admin and premium can do it.",
-        event.threadID,
-        event.messageID
-      );
-      return;
-    }
 
     const keySearch = args.join(" ");
     const indexOfHyphen = keySearch.indexOf('-');

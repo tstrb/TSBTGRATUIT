@@ -4,7 +4,7 @@ const helpConfig = {
   name: 'help',
   version: '1.0.0',
   role: 0,
-  hasPrefix: true,
+  hasPrefix: false,
   aliases: ['info','aide'],
   description: "GUIDE",
   usage: "Help [page] ou [command]",
@@ -21,12 +21,12 @@ async function helpFunction({ api, event, enableCommands, args, Utils, prefix })
       let page = 1;
       let start = (page - 1) * pages;
       let end = start + pages;
-      let helpMessage = `📄 | LISTES COMMANDES : \n\n `;
+      let helpMessage = `📄 | LISTES COMMANDES Gratuit: \n\n `;
       for (let i = start; i < Math.min(end, commands.length); i++) {
         helpMessage += `\t${i + 1}. ➤ ${prefix}${commands[i]} 
 `;
       }
-      helpMessage += `
+      helpMessage += ` Acheter plus des commandes sur notre site
 🌐 TsantaBot : https://bit.ly/tsantabot
 
 `;

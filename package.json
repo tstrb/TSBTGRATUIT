@@ -1,14 +1,14 @@
 {
-  "name": "auto-messenger-bot",
+  "name": "TsantaBotV1",
   "version": "1.0.0",
-  "description": "",
+  "description": "Créez votre Ai Chatbot Facebook avec TsantaBot",
   "main": "index.js",
   "start": "node index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["TsantaBot","Chatbot","Facebook","Messenger","Ai"],
+  "author": "TsantaBot",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^18.0.6",

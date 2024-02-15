@@ -8,15 +8,16 @@ const _U = "1m-9JS15f0PkyPsdvClShIHkJz0RDekyHci3C3S9A2HIKwfZGmZ9Qmat4lbqDzDNDWaK
 module.exports = {
   config: {
     name: "bing",
-    aliases: ["bi"],
+    aliases: ["bing2"],
     version: "1.0.2",
-    role: 0,
-    countDown: 300,
+    role: 1,
+    usePrefix: true,
+    countDown: 15,
     shortDescription: {
-      en: "dalle 3 > TsantaBot > Bing"
+      en: "dalle"
     },
     longDescription: {
-      en: "bing dispo chaque 5min"
+      en: ""
     },
     category: "dalle3 pro",
     guide: {
@@ -29,7 +30,7 @@ module.exports = {
     const permission = [`${uid}`];
     if (!permission.includes(event.senderID)) {
       api.sendMessage(
-        "You don't have enough permission to use this command. Only admin and premium can do it.",
+        "You don't have enough permission to use this command. Only admin can do it.",
         event.threadID,
         event.messageID
       );
@@ -42,13 +43,13 @@ module.exports = {
     const numberSearch = parseInt(keySearch.split("-").pop().trim()) || 4;
 
     try {
-      api.sendMessage("⏳ | TsantaBot et Bing sont en train d'imaginer votre textes... (⏰ Attendez..)\n\n_______________\n 🆓️ : Disponible chaque 5min\n 🌐 : bit.ly/tsantabot", event.threadID, event.messageID); // Added message here
+      api.sendMessage("⏳ | TsantaBot et Bing sont en train d'imaginer votre textes...", event.threadID, event.messageID); // Added message here
 
       const res = await axios.get(`https://api-dalle-gen.onrender.com/dalle3?auth_cookie_U=${_U}&auth_cookie_KievRPSSecAuth=${KievRPSSecAuth}&prompt=${encodeURIComponent(keySearchs)}`);
       const data = res.data.results.images;
 
       if (!data || data.length === 0) {
-        api.sendMessage("On ne sait pas d'imaginer votre textes. Essayez un autre. ", event.threadID, event.messageID);
+        api.sendMessage("No images found for the provided query.", event.threadID, event.messageID);
         return;
       }
 
@@ -66,7 +67,7 @@ module.exports = {
       }, event.threadID, event.messageID);
     } catch (error) {
       console.error(error);
-      api.sendMessage("🤯 Oh non, Je suis malade. erreur / ressayer", event.threadID, event.messageID);
+      api.sendMessage("cookie of the command. Is expired", event.threadID, event.messageID);
     } finally {
       await fs.remove(path.join(__dirname, 'cache'));
     }

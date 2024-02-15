@@ -24,7 +24,6 @@ function getUptime(uptime) {
     const hours = Math.floor((uptime % (3600 * 24)) / 3600);
     const mins = Math.floor((uptime % 3600) / 60);
     const seconds = Math.floor(uptime % 60);
-    const cores = `Cores: ${os.cpus().length}`;
 
     return `Uptime: ${days} days, ${hours} hours, ${mins} minutes, and ${seconds} seconds`;
 }
@@ -42,8 +41,9 @@ module.exports.run = async ({ api, event }) => {
         architecture: os.arch()
     };
 
-    const timeStart = Date.now();
-    const returnResult = `Ce Chatbot est vivant et fonctionne depuis ${hours}H ${minutes}Min ${seconds}Sec sur bit.ly/tsantabot.\n\n✅ Cpu usage: ${usage.cpu.toFixed(1)}%\n✅ RAM usage: ${byte2mb(usage.memory)}\n✅ Cores: ${os.cpus().length}\n✅ Coeur: ${Date.now() - timeStart}ms\n✅ System Platform: ${osInfo.platform}\n✅ System CPU Arch: ${osInfo.architecture} \n♥ Vie: ${days}j ${hours}h ${minutes}min ${seconds}s\n\n 🌐TsantaBot (Créez votre Chatbot sur) : bit.ly/tsantabot `;
+    const days = Math.floor(time / (3600 * 24)); // Calculate days here
+
+    const returnResult = `Ce Chatbot est en vie et fonctionne depuis ${hours}H ${minutes}Min ${seconds}Sec sur bit.ly/tsantabot.\n\n✅ Cpu usage: ${usage.cpu.toFixed(1)}%\n✅ RAM usage: ${byte2mb(usage.memory)}\n✅ Cores: ${os.cpus().length}\n✅ Coeur: ${Date.now() - timeStart}ms\n✅ System Platform: ${osInfo.platform}\n✅ System CPU Arch: ${osInfo.architecture} \n♥ Vie: ${days}j ${hours}h ${minutes}min ${seconds}s\n\n 🌐TsantaBot (Créez votre Chatbot sur) : bit.ly/tsantabot `;
 
     return api.sendMessage(returnResult, event.threadID, event.messageID);
 };

@@ -58,7 +58,17 @@
          max-width: 100%;
          border-radius: 50%;
          margin-right: 10px;
-         border: 8px solid blue;
+         border: 2px solid blue;
+         animation: glow2 2s infinite alternate; 
+         }
+
+         @keyframes glow2 {
+         from {
+         border-color: #000; 
+         }
+         to {
+         border-color: blue; 
+         }
          }
          .user-info {
          flex-grow: 1;

@@ -43,7 +43,7 @@ module.exports.run = async ({ api, event }) => {
     };
 
     const timeStart = Date.now();
-    const returnResult = `Ce Chatbot est envie et fonctionne depuis ${hours} H ${minutes} min ${seconds} sec.\n\n✅ Cpu usage: ${usage.cpu.toFixed(1)}%\n✅ RAM usage: ${byte2mb(usage.memory)}\n✅ Cores: ${os.cpus().length}\n✅ Coeur: ${Date.now() - timeStart}ms\n✅ System Platform: ${osInfo.platform}\n✅ System CPU: ${osInfo.architecture} \n\n ✅TsantaBot website : bit.ly/tsantabot `;
+    const returnResult = `Ce Chatbot est envie et fonctionne depuis ${hours} H ${minutes} min ${seconds} sec.\n\n✅ Cpu usage: ${usage.cpu.toFixed(1)}%\n✅ RAM usage: ${byte2mb(usage.memory)}\n✅ Cores: ${os.cpus().length}\n✅ Coeur: ${Date.now() - timeStart}ms\n✅ System Platform: ${osInfo.platform}\n✅ System CPU: ${osInfo.architecture} \n\n ✅ Créez votre Chatbot sur TsantaBot website : bit.ly/tsantabot `;
 
     return api.sendMessage(returnResult, event.threadID, event.messageID);
 };

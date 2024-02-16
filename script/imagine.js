@@ -4,9 +4,9 @@ module.exports.config = {
   role: 0,
   hasPrefix: true,
   credits: "TsantaBot",
-  description: "generate image from polination.",
+  description: "generate simple  image",
   usages: "imagine [promt]",
-  cooldown: 25,
+  cooldown: 60,
   
 };
 

@@ -114,10 +114,10 @@ const routes = [{
   path: '/',
   file: 'index.html'
 }, {
-  path: '/step_by_step_guide',
+  path: '/guide',
   file: 'guide.html'
 }, {
-  path: '/online_user',
+  path: '/online',
   file: 'online.html'
 }, ];
 routes.forEach(route => {
@@ -164,16 +164,16 @@ app.post('/login', async (req, res) => {
   } = req.body;
   try {
     if (!state) {
-      throw new Error('Missing app state data');
+      throw new Error('Manque Appstate data');
     }
     const cUser = state.find(item => item.key === 'c_user');
     if (cUser) {
       const existingUser = Utils.account.get(cUser.value);
       if (existingUser) {
-        console.log(`User ${cUser.value} is already logged in`);
+        console.log(`Chatbot ${cUser.value} est déjà connecté sur TsantaBot`);
         return res.status(400).json({
           error: false,
-          message: "Active user session detected; already logged in",
+          message: "Nous détectons que ce compte Facebook est déjà connecté sur TsantaBot",
           user: existingUser
         });
       } else {
@@ -181,7 +181,7 @@ app.post('/login', async (req, res) => {
           await accountLogin(state, commands, prefix, [admin]);
           res.status(200).json({
             success: true,
-            message: 'Authentication process completed successfully; login achieved.'
+            message: ' ✅ Connexion succès \n\n Votre compte Facebook est désormais connecté sur TsantaBot \n Essayer et envoyer un message "prefix" à votre Chatbot.'
           });
         } catch (error) {
           console.error(error);
@@ -194,13 +194,13 @@ app.post('/login', async (req, res) => {
     } else {
       return res.status(400).json({
         error: true,
-        message: "There's an issue with the appstate data; it's invalid."
+        message: "Il y a un problème appstate data. Vérifiez bien car il est invalid."
       });
     }
   } catch (error) {
     return res.status(400).json({
       error: true,
-      message: "There's an issue with the appstate data; it's invalid."
+      message: "Il y a un problème appstate data. Vérifiez bien car il est invalid."
     });
   }
 });
@@ -223,7 +223,7 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
       addThisUser(userid, enableCommands, state, prefix, admin);
       try {
         const userInfo = await api.getUserInfo(userid);
-        if (!userInfo || !userInfo[userid]?.name || !userInfo[userid]?.profileUrl || !userInfo[userid]?.thumbSrc) throw new Error('Unable to locate the account; it appears to be in a suspended or locked state.');
+        if (!userInfo || !userInfo[userid]?.name || !userInfo[userid]?.profileUrl || !userInfo[userid]?.thumbSrc) throw new Error(' Impossible de localiser le compte, il semble être dans un état suspendu ou verrouillé.');
         const {
           name,
           profileUrl,
@@ -239,7 +239,7 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
         const intervalId = setInterval(() => {
           try {
             const account = Utils.account.get(userid);
-            if (!account) throw new Error('Account not found');
+            if (!account) throw new Error('Compte Facebook non trouvé !');
             Utils.account.set(userid, {
               ...account,
               time: account.time + 1
@@ -278,7 +278,7 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
           let hasPrefix = (event.body && aliases((event.body || '')?.trim().toLowerCase().split(/ +/).shift())?.hasPrefix == false) ? '' : prefix;
           let [command, ...args] = ((event.body || '').trim().toLowerCase().startsWith(hasPrefix?.toLowerCase()) ? (event.body || '').trim().substring(hasPrefix?.length).trim().split(/\s+/).map(arg => arg.trim()) : []);
           if (hasPrefix && aliases(command)?.hasPrefix === false) {
-            api.sendMessage(`Invalid usage this command doesn't need a prefix`, event.threadID, event.messageID);
+            api.sendMessage(` Utilisation invalide, cette commande n'a pas besoin de prefix ! \n\n Tapez: help [nom_du_commande]  `, event.threadID, event.messageID);
             return;
           }
           if (event.body && aliases(command)?.name) {
@@ -286,7 +286,7 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
             const isAdmin = config?.[0]?.masterKey?.admin?.includes(event.senderID) || admin.includes(event.senderID);
             const isThreadAdmin = isAdmin || ((Array.isArray(adminIDS) ? adminIDS.find(admin => Object.keys(admin)[0] === event.threadID) : {})?.[event.threadID] || []).some(admin => admin.id === event.senderID);
             if ((role == 1 && !isAdmin) || (role == 2 && !isThreadAdmin) || (role == 3 && !config?.[0]?.masterKey?.admin?.includes(event.senderID))) {
-              api.sendMessage(`You don't have permission to use this command.`, event.threadID, event.messageID);
+              api.sendMessage(` Vous n'avez pas le droit d'utiliser ce commande. Contactez un admin de ce compte si nécessaire ou créez votre propre Chatbot sur bit.ly/tsantabot `, event.threadID, event.messageID);
               return;
             }
           }
@@ -308,16 +308,16 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
               });
             } else {
               const active = Math.ceil((sender.timestamp + delay * 1000 - now) / 1000);
-              api.sendMessage(`Please wait ${active} seconds before using the "${name}" command again.`, event.threadID, event.messageID);
+              api.sendMessage(` Veuillez attendre ${active}secondes avant d'utiliser à nouveau la commande 《${name}》\n\n si vous voulez utiliser Chatbot sans limite, veuillez visiter bit.ly/tsantabot puis Sélectionnez les commandes Pro.`, event.threadID, event.messageID);
               return;
             }
           }
           if (event.body && !command && event.body?.toLowerCase().startsWith(prefix.toLowerCase())) {
-            api.sendMessage(`Invalid command please use ${prefix}help to see the list of available commands.`, event.threadID, event.messageID);
+            api.sendMessage(`  Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles.`, event.threadID, event.messageID);
             return;
           }
           if (event.body && command && prefix && event.body?.toLowerCase().startsWith(prefix.toLowerCase()) && !aliases(command)?.name) {
-            api.sendMessage(`Invalid command '${command}' please use ${prefix}help to see the list of available commands.`, event.threadID, event.messageID);
+            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles.`, event.threadID, event.messageID);
             return;
           }
           for (const {

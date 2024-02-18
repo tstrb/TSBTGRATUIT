@@ -81,18 +81,19 @@ body {
      margin-top: 10px;
      padding: 14px;
      align-items: center;
+     justify-content:between ;
      border: 1px solid #ccc;
      border-radius: 8px;
      cursor: pointer;
      transition: background-color 0.3s ease, border-color 0.3s ease;
      border-color: #ccc;
-     background-color: #fff;
+     background-colorX: #fff;
 }
- .form-check:hover {
+ .fXorm-check:hover {
      background-color: #f0f0f0;
      border-color: #333;
 }
- .form-check-input {
+ .fXorm-check-input {
      margin-right: 10px;
      opacity: 0;
 }

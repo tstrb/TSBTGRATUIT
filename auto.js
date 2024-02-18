@@ -6,6 +6,7 @@ const app = express();
 const chalk = require('chalk');
 const bodyParser = require('body-parser');
 const script = path.join(__dirname, 'script');
+const cron = require('node-cron');
 const config = fs.existsSync('./data') && fs.existsSync('./data/config.json') ? JSON.parse(fs.readFileSync('./data/config.json', 'utf8')) : createConfig();
 const Utils = new Object({
   commands: new Map(),
@@ -113,10 +114,10 @@ const routes = [{
   path: '/',
   file: 'index.html'
 }, {
-  path: '/guide',
+  path: '/step_by_step_guide',
   file: 'guide.html'
 }, {
-  path: '/online',
+  path: '/online_user',
   file: 'online.html'
 }, ];
 routes.forEach(route => {
@@ -163,7 +164,7 @@ app.post('/login', async (req, res) => {
   } = req.body;
   try {
     if (!state) {
-      throw new Error('Appstate data est vide !');
+      throw new Error('Missing app state data');
     }
     const cUser = state.find(item => item.key === 'c_user');
     if (cUser) {
@@ -172,7 +173,7 @@ app.post('/login', async (req, res) => {
         console.log(`User ${cUser.value} is already logged in`);
         return res.status(400).json({
           error: false,
-          message: "🔴 Nous détectons que ce compte est déjà activé et en ligne",
+          message: "Active user session detected; already logged in",
           user: existingUser
         });
       } else {
@@ -180,7 +181,7 @@ app.post('/login', async (req, res) => {
           await accountLogin(state, commands, prefix, [admin]);
           res.status(200).json({
             success: true,
-            message: '✅ Votre compte Facebook est connecté sur TsantaBot avec succès.\n\n Maintenant, Veuillez essayer et envoyer un message "prefix" à votre compte Facebook Chatbot'
+            message: 'Authentication process completed successfully; login achieved.'
           });
         } catch (error) {
           console.error(error);
@@ -193,13 +194,13 @@ app.post('/login', async (req, res) => {
     } else {
       return res.status(400).json({
         error: true,
-        message: "⚠️ Il y a un problème avec APPSTATE  data ! il est invalid. Vérifiez svp"
+        message: "There's an issue with the appstate data; it's invalid."
       });
     }
   } catch (error) {
     return res.status(400).json({
       error: true,
-      message: "⚠️ Il y a un problème avec APPSTATE  data ! il est invalid. Vérifiez svp."
+      message: "There's an issue with the appstate data; it's invalid."
     });
   }
 });
@@ -277,7 +278,7 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
           let hasPrefix = (event.body && aliases((event.body || '')?.trim().toLowerCase().split(/ +/).shift())?.hasPrefix == false) ? '' : prefix;
           let [command, ...args] = ((event.body || '').trim().toLowerCase().startsWith(hasPrefix?.toLowerCase()) ? (event.body || '').trim().substring(hasPrefix?.length).trim().split(/\s+/).map(arg => arg.trim()) : []);
           if (hasPrefix && aliases(command)?.hasPrefix === false) {
-            api.sendMessage(`Invalid usage !\n Cette commande n'utilise pas un prefix. (tapez : help)`, event.threadID, event.messageID);
+            api.sendMessage(`Invalid usage this command doesn't need a prefix`, event.threadID, event.messageID);
             return;
           }
           if (event.body && aliases(command)?.name) {
@@ -285,7 +286,7 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
             const isAdmin = config?.[0]?.masterKey?.admin?.includes(event.senderID) || admin.includes(event.senderID);
             const isThreadAdmin = isAdmin || ((Array.isArray(adminIDS) ? adminIDS.find(admin => Object.keys(admin)[0] === event.threadID) : {})?.[event.threadID] || []).some(admin => admin.id === event.senderID);
             if ((role == 1 && !isAdmin) || (role == 2 && !isThreadAdmin) || (role == 3 && !config?.[0]?.masterKey?.admin?.includes(event.senderID))) {
-              api.sendMessage(`⚠️ | Vous n'avez pas le droit d'utiliser cette commande. (Contactez un admin)`, event.threadID, event.messageID);
+              api.sendMessage(`You don't have permission to use this command.`, event.threadID, event.messageID);
               return;
             }
           }
@@ -298,25 +299,25 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
           if (event.body && aliases(command)?.name) {
             const now = Date.now();
             const name = aliases(command)?.name;
-            const sender = Utils.cooldowns.get(`${event.senderID}_${name}`);
+            const sender = Utils.cooldowns.get(`${event.senderID}_${name}_${userid}`);
             const delay = aliases(command)?.cooldown ?? 0;
             if (!sender || (now - sender.timestamp) >= delay * 1000) {
-              Utils.cooldowns.set(`${event.senderID}_${name}`, {
+              Utils.cooldowns.set(`${event.senderID}_${name}_${userid}`, {
                 timestamp: now,
                 command: name
               });
             } else {
               const active = Math.ceil((sender.timestamp + delay * 1000 - now) / 1000);
-              api.sendMessage(`⏳ | Attendez ${active} secondes avant d'utiliser la commande "${name}" \n\n bit.ly/tsantabot `, event.threadID, event.messageID);
+              api.sendMessage(`Please wait ${active} seconds before using the "${name}" command again.`, event.threadID, event.messageID);
               return;
             }
           }
           if (event.body && !command && event.body?.toLowerCase().startsWith(prefix.toLowerCase())) {
-            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles.\n bit.ly/tsantabot `, event.threadID, event.messageID);
+            api.sendMessage(`Invalid command please use ${prefix}help to see the list of available commands.`, event.threadID, event.messageID);
             return;
           }
           if (event.body && command && prefix && event.body?.toLowerCase().startsWith(prefix.toLowerCase()) && !aliases(command)?.name) {
-            api.sendMessage(`Commande invalide, veuillez utiliser ${prefix}help pour voir la liste des commandes disponibles. \n bit.ly/tsantabot `, event.threadID, event.messageID);
+            api.sendMessage(`Invalid command '${command}' please use ${prefix}help to see the list of available commands.`, event.threadID, event.messageID);
             return;
           }
           for (const {
@@ -405,18 +406,7 @@ function aliases(command) {
   return null;
 }
 async function main() {
-  const cron = require('node-cron');
-  const adminOfConfig = fs.existsSync('./data') && fs.existsSync('./data/config.json') ? JSON.parse(fs.readFileSync('./data/config.json', 'utf8')) : createConfig();
-  cron.schedule(`*/${adminOfConfig[0].masterKey.restartTime} * * * *`, async () => {
-    const history = JSON.parse(fs.readFileSync('./data/history.json', 'utf-8'));
-    history.forEach(user => {
-      (!user || typeof user !== 'object') ? process.exit(1): null;
-      (user.time === undefined || user.time === null || isNaN(user.time)) ? process.exit(1): null;
-      user.time += adminOfConfig[0].masterKey.restartTime * 60;
-    });
-    await fs.writeFileSync('./data/history.json', JSON.stringify(history, null, 2));
-    process.exit(1);
-  });
+  const empty = require('fs-extra');
   const cacheFile = './script/cache';
   if (!fs.existsSync(cacheFile)) fs.mkdirSync(cacheFile);
   const configFile = './data/history.json';
@@ -424,6 +414,19 @@ async function main() {
   const config = JSON.parse(fs.readFileSync(configFile, 'utf-8'));
   const sessionFolder = path.join('./data/session');
   if (!fs.existsSync(sessionFolder)) fs.mkdirSync(sessionFolder);
+  const adminOfConfig = fs.existsSync('./data') && fs.existsSync('./data/config.json') ? JSON.parse(fs.readFileSync('./data/config.json', 'utf8')) : createConfig();
+  cron.schedule(`*/${adminOfConfig[0].masterKey.restartTime} * * * *`, async () => {
+    const history = JSON.parse(fs.readFileSync('./data/history.json', 'utf-8'));
+    history.forEach(user => {
+      (!user || typeof user !== 'object') ? process.exit(1): null;
+      (user.time === undefined || user.time === null || isNaN(user.time)) ? process.exit(1): null;
+      const update = Utils.account.get(user.userid);
+      update ? user.time = update.time : null;
+    });
+    await empty.emptyDir(cacheFile);
+    await fs.writeFileSync('./data/history.json', JSON.stringify(history, null, 2));
+    process.exit(1);
+  });
   try {
     for (const file of fs.readdirSync(sessionFolder)) {
       const filePath = path.join(sessionFolder, file);
@@ -496,3 +499,4 @@ async function createDatabase() {
   return database;
 }
 main()
+              

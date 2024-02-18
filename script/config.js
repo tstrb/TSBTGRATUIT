@@ -1,3 +1,5 @@
+//Can you resolve this error in my code below. 
+//Error: Error installing command from file config.js: missing ) after argument list.
 
 module.exports.config = {
 name: "config",
@@ -7,7 +9,7 @@ role: 1,
 credits: "ryuko",
 description: "config bot",
 commandCategory: "operator",
-cooldown: 5
+cooldowns: 5
 };
 
 
@@ -121,15 +123,15 @@ module.exports.handleReply = async function({ api, event, handleReply, getText }
       });
     }
     else if (["10"].includes(args[0])) {
-      return reply(`reply to this message with the content you want to create a post`), (e, info) => {
-        global.client.handleReply.push({
-          name: this.config.name,
-          messageID: info.messageID,
-          author: senderID,
-          type: "createPost"
-        });
-      });
-    }
+  return reply(`reply to this message with the content you want to create a post`, (e, info) => {
+    global.client.handleReply.push({
+      name: this.config.name,
+      messageID: info.messageID,
+      author: senderID,
+      type: "createPost"
+    });
+  });
+}
     else if (["11"].includes(args[0])) {
       return reply(`respond to this message with the post id you want to delete, you can enter multiple ids separated by a space or a newline`, (e, info) => {
         global.client.handleReply.push({

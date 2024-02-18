@@ -109,34 +109,27 @@ async function commandList() {
 
 function createCommand(element, order, command, type, aliases) {
   const container = document.createElement('div');
-  container.classList.add('form-check');
+  container.classList.add('form-check', 'form-switch');
+  container.onclick = toggleCheckbox;
   const checkbox = document.createElement('input');
   checkbox.classList.add('form-check-input', type === 'handleEvent' ? 'handleEvent' : 'commands');
   checkbox.type = 'checkbox';
+  checkbox.role = 'switch';
   checkbox.id = `flexSwitchCheck_${order}`;
-  checkbox.setAttribute('data-order', order); // Add data-order attribute to identify the checkbox
-  checkbox.addEventListener('change', function() {
-    const label = document.querySelector(`label[for="${this.id}"]`);
-    if (this.checked) {
-      label.classList.add('bg-success'); // Change background color when checkbox is checked
-    } else {
-      label.classList.remove('bg-success'); // Remove background color when checkbox is unchecked
-    }
-  });
   const label = document.createElement('label');
   label.classList.add('form-check-label', type === 'handleEvent' ? 'handleEvent' : 'commands');
-  label.htmlFor = `flexSwitchCheck_${order}`;
+  label.for = `flexSwitchCheck_${order}`;
   label.textContent = `${order}. ${command}`;
   container.appendChild(checkbox);
   container.appendChild(label);
-  
+  /*
   if (aliases.length > 0 && type !== 'handleEvent') {
     const aliasText = document.createElement('span');
     aliasText.classList.add('aliases');
     aliasText.textContent = ` (${aliases.join(', ')})`;
     label.appendChild(aliasText);
   }
-  
+  */
   return container;
 }
 

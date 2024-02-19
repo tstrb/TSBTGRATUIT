@@ -6,7 +6,7 @@ module.exports.config = {
   credits: "TsantaBot",
   description: "generate simple  image",
   usages: "imagine [promt]",
-  cooldown: 60,
+  cooldown: 160,
   
 };
 

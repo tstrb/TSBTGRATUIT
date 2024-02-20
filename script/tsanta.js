@@ -1,43 +1,36 @@
-const axios = require('axios');
-
+const {
+  Hercai
+} = require('hercai');
+const herc = new Hercai();
 module.exports.config = {
-    name: "tsanta",
-    version: "1.0.0",
-    role: 0,
-    credits: "TsantaBot",//api by jonell
-    description: "Gpt architecture",
-    usePrefix: true,
-    Category: "GPT4",
-    cooldown: 10,
+  name: 'Tsanta', //hercai
+  version: '1.0.0',
+  role: 0,
+  hasPrefix: true,
+  description: "An AI command GPTHercai",
+  usage: "Tsanta [prompt]",
+  credits: 'TsantaBot',
+  cooldown: 15,
 };
-
-module.exports.run = async function ({ api, event, args }) {
-    try {
-        const { messageID, messageReply } = event;
-        let prompt = args.join(' ');
-
-        if (messageReply) {
-            const repliedMessage = messageReply.body;
-            prompt = `${repliedMessage} ${prompt}`;
-        }
-
-        if (!prompt) {
-            return api.sendMessage('💡TsantaBot : bit.ly/tsantabot \n━━━━━━━━━━━━━━\n➤ Info: Discutez avec Tsanta simple Ai.\n➤ Usage: Tsanta + question \n➤ Ex: Tsanta Tu es là?', event.threadID, messageID);
-        }
-
-        const gpt4_api = `https://ai-chat-gpt-4-lite.onrender.com/api/hercai?question=${encodeURIComponent(prompt)}`;
-
-        const response = await axios.get(gpt4_api);
-
-        if (response.data && response.data.reply) {
-            const generatedText = response.data.reply;
-            api.sendMessage({ body: "TsantaBot :\n━━━━━\n" + generatedText, attachment: null }, event.threadID, messageID); // Added "Pretend: " to the generatedText
-        } else {
-            console.error('API response did not contain expected data:', response.data);
-            api.sendMessage(`❌ An error occurred while generating the text response. Please try again later. Response data: ${JSON.stringify(response.data)}`, event.threadID, messageID);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        api.sendMessage(`❌ An error occurred while generating the text response. Please try again later. Error details: ${error.message}`, event.threadID, event.messageID);
-    }
+module.exports.run = async function({
+  api,
+  event,
+  args
+}) {
+  const input = args.join(' ');
+  if (!input) {
+    api.sendMessage(`▪︎Ex: Tsanta Tu es là ? \n\n ✅Créez votre Chatbot sur bit.ly/tsantabot `, event.threadID, event.messageID);
+    return;
+  }
+  api.sendMessage(`✍ | TsantaBot_Gpt en train d'écrire... \n\n ▶️Créez votre Chatbot : bit.ly/tsantabot `, event.threadID, event.messageID);
+  try {
+    const response = await herc.question({
+      model: "v3",
+      system: "Your name is TsantaBot, Your principal task is to help free, Your specilist is to create Chatbot Facebook. So if anyone talk about Chatbot,  then help them to visit and create it in our website creator Chatbot messenger: bit.ly/tsantabot. Here is contact of Admin: 0349310268. Admin name: Tsanta Rabemananjara. You're helpful",
+      content: input
+    });
+    api.sendMessage(response.reply, event.threadID, event.messageID);
+  } catch (error) {
+    api.sendMessage('Peut-être je suis malade aujourd'hui 🥶 svp soignez-moi🤖', event.threadID, event.messageID);
+  }
 };

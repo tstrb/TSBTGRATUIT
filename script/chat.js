@@ -6,9 +6,9 @@ module.exports.config = {
   version: '1.0.0',
   role: 0,
   aliases: ['llma'],
-  cooldown: 20,
+  cooldown: 10,
   hasPrefix: true,
-  usage: "Simple Ai Chat",
+  usage: "chat Question",
 };
 
 module.exports.run = async function ({ api, event, args }) {
@@ -22,7 +22,7 @@ module.exports.run = async function ({ api, event, args }) {
  }
 
  if (!prompt) {
-  return api.sendMessage('👨‍🎓 Simple Ai Teacher\n\n▶️ Ex: Chat Hello, how are you ?\n\n 🌐 bit.ly/tsantabot', event.threadID, event.messageID);
+  return api.sendMessage('- Simple Chat Teacher Ai \n ▪︎Ex: Chat Hello ? \n\n 🌐 bit.ly/tsantabot', event.threadID, event.messageID);
  }
 
  const llama_api = `https://llama.aliestercrowley.com/api?prompt=${encodeURIComponent(prompt)}`;

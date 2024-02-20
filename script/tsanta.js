@@ -31,6 +31,6 @@ module.exports.run = async function({
     });
     api.sendMessage(response.reply, event.threadID, event.messageID);
   } catch (error) {
-    api.sendMessage(`Peut-être je suis malade aujourd'hui 🥶 svp soignez-moi🤖`, event.threadID, event.messageID);
+    api.sendMessage('Peut-être, je suis malade aujourd-hui 🥶 svp soignez-moi🤖', event.threadID, event.messageID);
   }
 };

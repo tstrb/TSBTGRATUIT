@@ -17,10 +17,10 @@ module.exports.run = async function({
 }) {
   const input = args.join(' ');
   if (!input) {
-    api.sendMessage(`Please provide a question or statement after 'ai'. For example: 'ai What is the capital of France?'`, event.threadID, event.messageID);
+    api.sendMessage(`Simple Ai TsantaBot: \n ▪︎Ex: Ai Bonjoir\n\n * Isaky ny manontany dia asina "Ai" foana ny fiandohany\n\n Créez votre Chatbot sur bit.ly/tsantabot`, event.threadID, event.messageID);
     return;
   }
-  api.sendMessage(`🔍 "${input}"`, event.threadID, event.messageID);
+  api.sendMessage(`🤔 En train de répondre... ⏳`, event.threadID, event.messageID);
   try {
     const {
       data

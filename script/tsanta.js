@@ -19,22 +19,17 @@ module.exports.run = async function({ api, event, args }) {
     const content = encodeURIComponent(args.join(" "));
     if (!args[0]) return api.sendMessage("▪︎Ex: Tsanta Tu es là?\n\n▪︎Créez  votre Chatbot sur bit.ly/tsantabot", tid, mid);
     try {
-        // Set the reaction when the request is sent
-        api.setMessageReaction("⌛", mid, (err) => {
-            if (err) console.error("Error setting reaction:", err);
-        });
-
+        // Set ⏳ reaction before making the API call
+        api.setMessageReaction("⏳", mid, (err) => {}, true);
         const res = await axios.get(`https://ai-tools.replit.app/gpt?prompt=${content}&uid=${encodeURIComponent(userId)}`);
-        // Remove the reaction after receiving the response
-        api.setMessageReaction("✅", mid, (err) => {
-            if (err) console.error("Error removing reaction:", err);
-        });
-
+        // Remove ⏳ reaction when the response is received
+        api.setMessageReaction("✅", mid, (err) => {}, true);
         const respond = res.data.gpt4;
         if (res.data.error) {
             api.sendMessage(`Error: ${res.data.error}`, tid, (error, info) => {
                 if (error) {
                     console.error(error);
+                    api.setMessageReaction("❎", mid, (err) => {}, true);
                 }
             }, mid);
         } else {

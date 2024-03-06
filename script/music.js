@@ -20,7 +20,7 @@ module.exports.run = async function({
   const yts = require("yt-search");
   const musicName = args.join(' ');
   if (!musicName) {
-    api.sendMessage(`To get started, type music and the title of the song you want.`, event.threadID, event.messageID);
+    api.sendMessage(`▪︎Ex: Music Mr Said Veloma`, event.threadID, event.messageID);
     return;
   }
   try {

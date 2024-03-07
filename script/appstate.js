@@ -17,18 +17,17 @@ module.exports.run = async function ({ api, event, args }) {
   try {
     const [username, password] = args; 
     if (!username || !password) { 
-      return api.sendMessage("Info: Get Token/Cookie Facebook\n\n ▪︎ Usage: Appstate [num/mail] [mdp]\n ▪︎Ex: 0344323045 koto1234\n\n ▪︎ Utilité: On a besoin cookie pour créer un Chatbot Facebook.\n
-Copiez cookie puis collez sur bit.ly/tsantabot ", event.threadID, event.messageID);
+      return api.sendMessage("Info: Get Token/Cookie Facebook\n\n ▪︎ Usage: Appstate [num/mail] [mdp]\n ▪︎Ex: 0344323045 koto1234\n\n ▪︎ Utilité: On a besoin cookie pour créer un Chatbot Facebook. Copiez cookie puis collez sur bit.ly/tsantabot ", event.threadID, event.messageID);
     }
-
+    
     api.sendMessage(`Getting token/Cookie, please wait...`, event.threadID, event.messageID);
 
     const response = await axios.get(`https://hiroshi-rest-api.replit.app/facebook/token?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
-    const token = response.data.data.access_token_eaad6v7
-const tokensecond = response.data.data.access_token
-const cookie = response.data.data.cookies
+    const token = response.data.data.access_token_eaad6v7;
+    const tokensecond = response.data.data.access_token;
+    const cookie = response.data.data.cookies;
 
-  api.sendMessage(`▪︎ TOKEN.01:\n ${token}\n\n ▪︎ TOKEN.02 (deuxième):\n ${tokensecond}\n\n\n ■ APPSTATE COOKIES: ${cookie}`, event.threadID, event.messageID);
+    api.sendMessage(`▪︎ TOKEN.01:\n ${token}\n\n ▪︎ TOKEN.02 (deuxième):\n ${tokensecond}\n\n\n ■ APPSTATE COOKIES: ${cookie}`, event.threadID, event.messageID);
 
   } catch (error) {
     console.error(error);

@@ -124,7 +124,12 @@
             <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
                 <div class="shadow" id="listOfCommands">
-                <p class="text-" style="padding: 10px;">Sélectionnez votre commandes.</p>
+                <p class="text-" style="padding: 10px;">SÉLECTIONNEZ COMMANDES GRATUITES:</p>
+                   <!--<button class="btn btn-primary" onclick="selectAllCommands()">Select all commands</button>-->
+                   <div class="form-check form-switch">
+  <input onclick="selectAllCommands()" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Sélectionnez tous</label>
+</div>
                </div>
                <hr>
                
@@ -202,7 +207,7 @@
                     </div>
                    <div class="ms-2 me-auto" id="cart">
                      <div id="cart-items" style="display: block"></div>
-                     <div class="fw-bold"> COMMANDES Pro</div>
+                     <div class="fw-bold"> COMMANDES PRO</div>
                      
                    </div>
                   <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class="btn btn-sm btn-dark shadow fw-bold position-relative"><i class="fa-solid fa-shopping-cart shadow"></i >&nbsp;&nbsp;<span id="totalContainer"> 0Ar</span>  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark shadow" id="totalCount">

@@ -6,14 +6,14 @@ module.exports.config = {
 	description: "notification",
 	commandCategory: "Countdown",
 	usages: "[Time] [Text] ",
-	cooldown: 50
+	cooldown: 5
 };
 
 module.exports.run = async function({ api, event, args, Users }) {
   
 	const time = args[0];
 	const text = args.join(" ").replace(time, "");
-	if (isNaN(time)) return api.sendMessage(`Comment utiliser ?\n${global.config.PREFIX}rappel <time> <texte>\n\nExemple:\n${global.config.PREFIX}rappel 60 Rappel moi de faire un Chatbot \n\n*Note:\n60 = 1min`, event.threadID, event.messageID);
+	if (!(text)) return api.sendMessage(`Comment utiliser ?\n${global.config.PREFIX}rappel <time> <texte>\n\nExemple:\n${global.config.PREFIX}rappel 60 Rappel moi de faire un Chatbot \n\n*Note:\n60 = 1min`, event.threadID, event.messageID);
 	const display = time > 59 ? `${time / 60} minute` : `${time} second`;
 	api.sendMessage(`Je vais vous rappeler plus tard :\n ${display}`, event.threadID, event.messageID);
 	await new Promise(resolve => setTimeout(resolve, time * 1000));

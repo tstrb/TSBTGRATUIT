@@ -1,12 +1,13 @@
 module.exports.config = {
 	name: "load",
 	version: "1.0.0",
-	usePrefix: 1,
+	usePrefix: false,
+	role: 1,
 	credits: "D-Jukie",
 	description: "reload config file data",
 	commandCategory: "Admin",
 	usages: "[]",
-	cooldown: 30
+	cooldown: 10
 };
 module.exports.run = async function({ api, event, args,Threads, Users }) {
 delete require.cache[require.resolve(global.client.configPath)];

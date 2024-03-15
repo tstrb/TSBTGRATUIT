@@ -154,16 +154,16 @@ const fs = require("fs-extra");
           }
         });
       }
-			/*
+			
       for (const path of paths) {
         try {
           fs.unlinkSync(path);
         }
         catch(e) {}
       }
-      */
+      
     }
-		/*
+		
     api.unsendMessage(handleReply.messageID, () => {
       api.sendMessage(`Bắt đầu tạo bài viết....`, threadID, (e, info) => {
         global.client.handleReply.push({
@@ -223,7 +223,7 @@ const fs = require("fs-extra");
         });
       }
     }
-    */
+    
     
     const form = {
       av: botID,
